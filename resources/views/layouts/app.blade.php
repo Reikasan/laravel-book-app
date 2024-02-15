@@ -14,6 +14,7 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
     <body>
+        <x-navbar />
         <div class="container">
             @yield('content')
         </div>
