@@ -3,7 +3,7 @@
         <h1>Login</h1>
     </div>
     <div class="login-card__body">
-        <form action="{{ route('login') }}" method="post">
+        <form method="POST" action="/login">
             @csrf
             <div class="form-group">
                 <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
@@ -20,16 +20,18 @@
                 @enderror
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" disabled>Login</button>
+                <button type="submit" class="btn btn--primary">Login</button>
             </div>
         </form>
         <div class="login-card__divider">
             <div class="line">
             <span>or</span>
         </div>
-        <div class="form-group">
-            <button class="btn btn-secondary guest-btn">Try as guest</button>
-        </div>
+        <form method="get" action={{route('guest-login')}}>
+            <div class="form-group">
+                <input type="submit" class="btn btn--secondary guest-login-btn" value="Try as guest" />
+            </div>
+        </form>
     </div>
     <div class="login-card__footer">
         <p>No account yet?</p>

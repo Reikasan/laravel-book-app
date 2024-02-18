@@ -33,17 +33,52 @@ a {
     font-weight: 700;
 }
 
-nav {
+.nav {
     width: 100vw;
     height: 12rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1rem 3rem;
 
     .logo {
         height: 12rem;
         overflow-y: hidden;
+        display: inline-block;
 
         img {
             margin: -2rem 0 0 0;
             height: 140%;
+        }
+    }
+
+    &__btn--sq {
+        width: 6rem;
+        height: 6rem;
+        padding: .5rem;
+        line-height: 1.3rem;
+        text-align: right;
+        border: solid 2px $black;
+        color: $black;
+        background: $white;
+        font-size: 2rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        transition: all 0.3s;
+
+        span {
+            letter-spacing: -2px;
+            display: inline-block;
+            font-size: 2rem;
+        }
+
+
+        &:hover {
+            background: $primaryColor;
+            color: $white;
+            border-color: $primaryColor;
         }
     }
 }
@@ -66,6 +101,7 @@ nav {
 
         &:first-of-type {
             flex-direction: column;
+            align-items: normal;
             h1 {
                 font-size: 4rem;
                 color: $white;
@@ -77,11 +113,11 @@ nav {
 
 .login-card {
     width: 400px;
-    height: 50vh;
+    min-height: fit-content;
     background: $white;
     border-radius: 5px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-    padding: 2rem;
+    padding: 3rem 2rem 5rem;
 
     h1 {
         text-align: center;
@@ -160,8 +196,6 @@ h1 {
     }
 }
 
-
-
 /* Buttons */
 @mixin primaryBtn {
     background: $primaryColor;
@@ -190,7 +224,7 @@ h1 {
        @include secondaryBtn; 
     }
 
-    &.btn-secondary {
+    &--secondary {
         @include secondaryBtn;
        
         &:hover {
@@ -199,3 +233,21 @@ h1 {
     }
 }
 
+.book-search {
+    &__form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .btn {
+            width: 10rem;
+        }
+    }
+
+    &__results {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+}

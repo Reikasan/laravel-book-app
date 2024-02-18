@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuestLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+    Route::get('/welcome', function () {
+        return view('welcome');
+    })->name('welcome');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-Route::get('/home', function () {
-    return view('index');
-})->name('home');
+Route::get('/guest-login', [GuestLoginController::class, 'login'])->name('guest-login');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    })->name('home');
+});
+
+
