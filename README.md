@@ -6,8 +6,8 @@ It is still under construction, and I have recreated it using only Laravel.
 
 > [!NOTE]
 > I'm currently focusing on the backend, and the UI is not yet responsive.
-> The project is still unfinished. 
-> Please review the Progress section.
+> The project is still unfinished. <br/>
+> Please review the [Progress section](https://github.com/Reikasan/laravel-book-app/#progress).
 
 # Technologies
 - Laravel
