@@ -25,8 +25,11 @@ Route::middleware(['auth'])->group(function () {
         return view('pages.index');
     })->name('home');
 
-    Route::resource('books', BookController::class);
-    Route::post('books/search', [BookController::class, 'showFetchedBooks'])->name('showFetchedBooks');
+    Route::group(['prefix' =>'books'], function() {
+        Route::resource('/', BookController::class);
+        Route::post('/search', [BookController::class, 'searchByApi'])->name('books.searchByApi');
+        Route::post('/{title}', [BookController::class, 'showFetchedBook'])->name('books.showFetchedBook');
+    });
 });
 
 
