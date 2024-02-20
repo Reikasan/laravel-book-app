@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-app>
     <x-book-searchbar />
     <div class="book-container">
         {{-- books-b‚lade --}}
@@ -9,5 +8,5 @@
             @endforeach
         @endif
     </div>
-@endsection
+</x-app>
 

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Book App{{ isset($title) ? ' ' . $title : null }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,8 +18,8 @@
     </head>
     <body>
         <x-navbar />
-        <div class="container">
-            @yield('content')
+        <div class="container {{ isset($containerClass) ? $containerClass : null }}">
+            {{ $slot }}
         </div>
     </body>
 </html>

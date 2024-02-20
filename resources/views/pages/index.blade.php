@@ -1,7 +1,5 @@
-@extends('layouts.app')
-@section('content')
+<x-app>
     <div>
         <x-book-searchbar />
-
     </div>
-@endsection
+</x-app>
