@@ -21,7 +21,6 @@ class BookService
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword);
         } else {
             $keyword = $this->cleanKeyword($keyword);
-            dd($keyword);
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword);
         }
         $books = $response->json();
@@ -54,7 +53,7 @@ class BookService
             $item->page_count = isset($book['volumeInfo']['pageCount']) ? $book['volumeInfo']['pageCount'] : null;
             $item->publisher = isset($book['volumeInfo']['publisher']) ? $book['volumeInfo']['publisher'] : null;
             $item->published_date = isset($book['volumeInfo']['publishedDate']) ? $book['volumeInfo']['publishedDate'] : null;
-            $item->category_id = isset($book['volumeInfo']['categories'])? $book['volumeInfo']['categories'][0] : null;
+            $item->categories = isset($book['volumeInfo']['categories'])? $book['volumeInfo']['categories'][0] : null;
             $item->google_book_id = $book['id'];
 
             $mappedBooks[] = $item;
