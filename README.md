@@ -25,3 +25,11 @@ It is still under construction, and I have recreated it using only Laravel.
 - [x] Fetch book data from Google Book API 🆕
 - [x] Show Fetched book data 🆕
 - [ ] CURD for Book data
+
+# Pages
+## Search from Google Book API 
+![Screenshot 2024-02-20 at 22 34 18](https://github.com/Reikasan/laravel-book-app/assets/68085523/a647aba0-2917-4957-bcd0-de047e601d2f)
+
+## Book page
+![Screenshot 2024-02-20 at 22 33 55](https://github.com/Reikasan/laravel-book-app/assets/68085523/298a9a88-9a29-4a0f-ae45-b15f951b40b7)
+
