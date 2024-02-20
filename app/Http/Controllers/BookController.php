@@ -76,7 +76,6 @@ class BookController extends Controller
     {
         $bookTitle = $request->input('book-title');
         $books = $this->bookService->fetchBook('title', $bookTitle);
-        $books = $this->bookService->mapBooksFromApi($books);
 
         return view('pages.books', [
             'books' => $books,
@@ -88,12 +87,9 @@ class BookController extends Controller
 
     public function showFetchedBook(Request $request)
     {
-
         $isbn = $request->input('isbn') != null ? $request->input('isbn') : null; 
 
         $book = $this->bookService->fetchBook('isbn', $isbn);
-        $book = $this->bookService->mapBooksFromApi($book);
-
         return view('pages.book', ['book' => $book]);
     }
 }

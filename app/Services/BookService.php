@@ -20,10 +20,20 @@ class BookService
         if($type === 'isbn') {
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword);
         } else {
+            $keyword = $this->cleanKeyword($keyword);
+            dd($keyword);
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword);
         }
         $books = $response->json();
-        return $books['items'];
+        $books = $this->mapBooksFromApi($books['items']);
+        return $type === 'isbn' ? $books[0] : $books;
+    }
+
+    private function cleanKeyword(string $keyword): string
+    {
+        $keyword = str_replace(['+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '~', '*', '?', ':', '\\'], '', $keyword);
+        $keyword = preg_replace('/\s+/', ' ', $keyword);
+        return str_replace(' ', '+', $keyword);
     }
 
     public function mapBooksFromApi(array $books): array
@@ -36,7 +46,8 @@ class BookService
             $item->sub_title = isset($book['volumeInfo']['subtitle']) ? $book['volumeInfo']['subtitle'] : null;
             $item->authors = isset($book['volumeInfo']['authors']) ? implode(', ', $book['volumeInfo']['authors']) : null;
             $item->description = isset($book['volumeInfo']['description']) ? $book['volumeInfo']['description'] : null;
-            $item->image_link = isset($book['volumeInfo']['imageLinks']['thumbnail']) ? $book['volumeInfo']['imageLinks']['thumbnail'] : null;
+            $item->image_thumbnail = isset($book['volumeInfo']['imageLinks']['thumbnail']) ? $book['volumeInfo']['imageLinks']['thumbnail'] : null;
+            $item->image_large = isset($book['volumeInfo']['imageLinks']['medium']) ? $book['volumeInfo']['imageLinks']['medium'] : null;
             $item->isbn =  isset($book['volumeInfo']['industryIdentifiers'][0]['identifier']) ? $book['volumeInfo']['industryIdentifiers'][0]['identifier'] : null;
             $item->isbn13 = isset($book['volumeInfo']['industryIdentifiers'][1]['identifier']) ? $book['volumeInfo']['industryIdentifiers'][1]['identifier'] : null;
             $item->language = isset($book['volumeInfo']['language']) ? $book['volumeInfo']['language'] : null;
