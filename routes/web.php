@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GuestLoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
     Route::get('/welcome', function () {
-        return view('welcome');
+        return view('pages.welcome');
     })->name('welcome');
 
 Route::get('/guest-login', [GuestLoginController::class, 'login'])->name('guest-login');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('index');
+        return view('pages.index');
     })->name('home');
+
+    Route::resource('books', BookController::class);
+    Route::post('books/search', [BookController::class, 'showFetchedBooks'])->name('showFetchedBooks');
 });
 
 
