@@ -21,6 +21,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+h3 {
+    font-size: 1.6rem;
+}
+
 p {
     font-size: 1.4rem;
     color: $darkgray;
@@ -169,6 +173,11 @@ h1 {
     padding-top: 10px;
     display: flex;
     flex-direction: column;
+
+    &.inline {
+        flex-direction: row;
+        align-items: center;
+    }
     
     label {
         order: -1;
@@ -234,20 +243,61 @@ h1 {
 }
 
 .book-search {
+    width: 100vw;
+    height: 10rem;
+
     &__form {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .form-group {
+            max-width: 80rem;
+            width: 80vw;
+        }
 
         .btn {
             width: 10rem;
         }
     }
 
-    &__results {
+    // &__results {
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+}
+
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.book-card {
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        height: 200px;
+        object-fit: contain;
+    }
+
+    &__content {
+        margin-top: 3rem;
+    }
+
+    &__btn-container {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
+        padding: 0;
+        gap: 1rem;
+        width: 100%;
     }
 }
