@@ -22,5 +22,6 @@ It is still under construction, and I have recreated it using only Laravel.
 - [x] Create factories and Seeder
 - [x] Add Models
 - [x] Add Guest-login and logout function
-- [ ] Fetch book data from Google Book API
-- [ ] Show Fetched book data
+- [x] Fetch book data from Google Book API 🆕
+- [x] Show Fetched book data 🆕
+- [ ] CURD for Book data
