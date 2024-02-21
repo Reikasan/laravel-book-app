@@ -6,12 +6,11 @@ use App\Models\Review;
 
 class ReviewRepository
 {
-    public function getLatestReviews($userId, $numberOfReviews)
+    public function getLatestReviews($userId)
     {
         $reviews = Review::where(['user_id' => $userId])
-                        ->whereBetween('created_at', [now()->subDays(30), now()])
-                        ->orderBy('created_at', 'desc')
-                        ->take($numberOfReviews)
+                        ->whereBetween('review_date', [now()->subDays(60), now()])
+                        ->orderBy('review_date', 'desc')
                         ->get();
         return $reviews;
     }

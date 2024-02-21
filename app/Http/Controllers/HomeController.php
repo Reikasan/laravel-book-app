@@ -18,8 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
-        $numberOfReviews = 4;
-        $latestReviews = $this->reviewService->getLatestReviews($userId, $numberOfReviews);
+        $latestReviews = $this->reviewService->getLatestReviews($userId);
         return view('pages.index', ['latestReviews' => $latestReviews]);
     }
 }

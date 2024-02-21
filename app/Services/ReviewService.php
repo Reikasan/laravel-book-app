@@ -13,8 +13,8 @@ class ReviewService
         $this->reviewRepository = $reviewRepository;
     }
 
-    public function getLatestReviews($userId, $numberOfReviews)
+    public function getLatestReviews($userId)
     {
-        return $this->reviewRepository->getLatestReviews($userId, $numberOfReviews);
+        return $this->reviewRepository->getLatestReviews($userId);
     }
 }
