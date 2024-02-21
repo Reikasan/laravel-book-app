@@ -16,15 +16,16 @@ return new class extends Migration
             $table->string('title', 100);
             $table->string('sub_title', 255)->nullable();
             $table->string('authors', 100);
-            $table->text('description');
-            $table->string('image_link', 255);
+            $table->text('description')->nullable();
+            $table->string('image_thumbnail', 255)->nullable();
+            $table->string('image_large', 255)->nullable();
             $table->string('isbn', 100)->nullable()->unique();
             $table->string('isbn13', 100)->nullable()->unique();
-            $table->string('language', 100);
-            $table->integer('page_count');
-            $table->string('publisher', 100);
+            $table->string('language', 100)->nullable();
+            $table->integer('page_count')->nullable();
+            $table->string('publisher', 100)->nullable();
             $table->string('published_date', 100)->nullable();
-            $table->foreignId('category_id')->constrained()
+            $table->foreignId('categories')->constrained()
                                             ->onDelete('cascade')
                                             ->onUpdate('cascade');
             $table->string(('google_book_id'))->unique();

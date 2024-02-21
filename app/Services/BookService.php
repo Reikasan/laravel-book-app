@@ -59,6 +59,7 @@ class BookService
             $item->published_date = isset($book['volumeInfo']['publishedDate']) ? $book['volumeInfo']['publishedDate'] : null;
             $item->categories = isset($book['volumeInfo']['categories'])? $book['volumeInfo']['categories'][0] : null;
             $item->google_book_id = $book['id'];
+            $item->google_book_link = $book['selfLink'];
 
             $mappedBooks[] = $item;
         }
