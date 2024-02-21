@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Services\BookService;
 
 class ReviewController extends Controller
 {
+    private $bookService;
+
+    public function __construct(BookService $bookService)
+    {
+        $this->bookService = $bookService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +43,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        return view('pages.review', ['review' => $review]);
     }
 
     /**
@@ -61,5 +68,13 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         //
+    }
+
+    public function createFromApi(Request $request)
+    {
+        $isbn = $request->input('isbn') != null ? $request->input('isbn') : $request->input('isbn13'); 
+
+        $book = $this->bookService->fetchBook('isbn', $isbn);
+        return view('pages.createReview', ['book' => $book]);
     }
 }
