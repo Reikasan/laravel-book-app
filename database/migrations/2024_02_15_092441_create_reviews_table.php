@@ -20,6 +20,7 @@ return new class extends Migration
                                         ->onDelete('cascade')
                                         ->onUpdate('cascade');
             $table->integer('rating');
+            $table->date('review_date');
             $table->text('review');
             $table->timestamps();
         });

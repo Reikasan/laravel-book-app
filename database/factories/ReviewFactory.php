@@ -20,6 +20,7 @@ class ReviewFactory extends Factory
             'user_id' => $this->faker->numberBetween(1, 5),
             'book_id' => $this->faker->numberBetween(1, 10),
             'rating' => $this->faker->numberBetween(1, 5),
+            'review_date' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
             'review' => $this->faker->paragraph($this->faker->numberBetween(1, 5), true)
         ];
     }
