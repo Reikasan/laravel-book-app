@@ -74,7 +74,11 @@ class BookController extends Controller
 
     public function searchByApi(Request $request)
     {
-        $bookTitle = $request->input('book-title');
+        $validated = $request->validate([
+            'book-title' => 'required|string|max:100'
+        ]);
+
+        $bookTitle = $validated['book-title'];
         $books = $this->bookService->fetchBook('title', $bookTitle);
 
         return view('pages.books', [
@@ -87,7 +91,12 @@ class BookController extends Controller
 
     public function showFetchedBook(Request $request)
     {
-        $isbn = $request->input('isbn') != null ? $request->input('isbn') : null; 
+        $validated = $request->validate([
+            'isbn' => 'string|max:100',
+            'isbn13' => 'string|max:100'
+        ]);
+
+        $isbn = $validated['isbn'] != null ? $validated['isbn'] : $validated['isbn13']; 
 
         $book = $this->bookService->fetchBook('isbn', $isbn);
         return view('pages.book', ['book' => $book]);
