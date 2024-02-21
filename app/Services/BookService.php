@@ -18,10 +18,10 @@ class BookService
     public function fetchBook(string $type, string $keyword)
     {
         if($type === 'isbn') {
-            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword);
+            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword . '&maxResults=40');
         } else {
             $keyword = $this->cleanKeyword($keyword);
-            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword);
+            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword . '&maxResults=40');
         }
         $books = $response->json();
         $books = $this->mapBooksFromApi($books['items']);
@@ -40,10 +40,14 @@ class BookService
         $mappedBooks = [];
         
         foreach($books as $book) {
+            if(!isset($book['volumeInfo']['title']) || !isset($book['volumeInfo']['authors'])) {
+                continue;
+            }
+
             $item = new Book();
             $item->title = $book['volumeInfo']['title'];
             $item->sub_title = isset($book['volumeInfo']['subtitle']) ? $book['volumeInfo']['subtitle'] : null;
-            $item->authors = isset($book['volumeInfo']['authors']) ? implode(', ', $book['volumeInfo']['authors']) : null;
+            $item->authors = implode(', ', $book['volumeInfo']['authors']);
             $item->description = isset($book['volumeInfo']['description']) ? $book['volumeInfo']['description'] : null;
             $item->image_thumbnail = isset($book['volumeInfo']['imageLinks']['thumbnail']) ? $book['volumeInfo']['imageLinks']['thumbnail'] : null;
             $item->image_large = isset($book['volumeInfo']['imageLinks']['medium']) ? $book['volumeInfo']['imageLinks']['medium'] : null;
