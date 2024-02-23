@@ -29,7 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('books/search', [BookController::class, 'searchByApi'])->name('books.searchByApi');
     Route::post('books/{title}', [BookController::class, 'showFetchedBook'])->name('books.showFetchedBook');
 
-    Route::resource('reviews', ReviewController::class);
+    Route::resource('reviews', ReviewController::class)->except(['index']);
+    Route::get('reviews/all/{year}', [ReviewController::class, 'indexByYear'])->name('reviews.indexByYear');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');
 });
 
