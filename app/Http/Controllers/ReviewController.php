@@ -5,21 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Services\BookService;
+use App\Services\ReviewService;
 
 class ReviewController extends Controller
 {
     private $bookService;
+    private $reviewService;
 
-    public function __construct(BookService $bookService)
+    public function __construct(BookService $bookService, ReviewService $reviewService)
     {
         $this->bookService = $bookService;
+        $this->reviewService = $reviewService;
     }
     /**
-     * Display a listing of the resource.
+     * Index page paginated by year.
      */
-    public function index()
+    public function indexByYear(int $year)
     {
-        //
+        $reviewsByMonthAndYear = $this->reviewService->reviewsByMonthAndYear();
+        $readMonth = $this->reviewService->getReadMonth();
+// dd($reviewsByMonthAndYear);
+        return view('pages.reviews', [
+            'reviews' => $reviewsByMonthAndYear, 
+            'readMonth' => $readMonth,
+            'selectedYear' => $year
+        ]);
     }
 
     /**

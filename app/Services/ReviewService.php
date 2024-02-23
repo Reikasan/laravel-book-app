@@ -17,4 +17,14 @@ class ReviewService
     {
         return $this->reviewRepository->getLatestReviews($userId);
     }
+
+    public function reviewsByMonthAndYear()
+    {
+        return $this->reviewRepository->reviewsByMonthAndYear();
+    } 
+    
+    public function getReadMonth()
+    {
+        return $this->reviewRepository->getReadMonth();
+    }
 }
