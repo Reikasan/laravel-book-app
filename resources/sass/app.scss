@@ -7,6 +7,12 @@ $darkgray: #2c2c2c;
 $lightgray: #7c7c7c;
 $borderColor: #D3D3D3;
 
+@mixin containerGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
 
 *, 
 *::after,
@@ -293,9 +299,7 @@ a.btn {
 }
 
 .book-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    @include containerGrid;
 }
 
 .book-card {
@@ -401,9 +405,7 @@ a.btn {
 
 .reviewed-books--recently {
     .reviews-row {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(200px, 1fr));
-        gap: 2rem;
+        @include containerGrid;
     }
 }
 
@@ -465,7 +467,6 @@ a.btn {
     }
 
     p {
-        max-width: 30rem;
         font-size: 5rem;
         color: $primaryColor;
         text-align: center;
@@ -478,4 +479,101 @@ a.btn {
     grid-template-columns: .75fr 1fr;
     justify-content: center;
     gap: 1rem;
+}
+
+.review-container {
+    .year-tabs {
+        margin-bottom: 3rem;
+        position: relative;
+
+        .year-tabs__container {
+            display: flex;
+            justify-content: flex-start;
+            gap: .1rem;
+        }
+
+        .tab {
+            width: 20rem;
+            height: 5rem;
+            padding: 1rem 2rem;
+            background: $blue;
+            border: solid 1px $blue;
+            border-bottom: none;
+            border-radius: 0 2rem 0 0;
+            color: $white;
+            cursor: pointer;
+            font-size: 2.5rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            position: relative;
+            
+            &::after {
+                content: "";
+                width: 201px;
+                height: 5rem;
+                background: linear-gradient(to Bottom, $primaryColor 0 20%, transparent 20% 100%);
+                position: absolute;
+                top: 0;
+                left: -1px;
+                border-radius: 0 2rem 0 0;
+                visibility: hidden;
+            }
+
+            &--active {
+                background: $white;
+                color: $blue;
+                
+                &::before {
+                    content: "";
+                    width: calc(20rem - 2px);
+                    height: 2rem;
+                    background: $white;
+                    position: absolute;
+                    top: 4rem;
+                    left: 0;
+                    z-index: 100;
+                }
+            }
+
+            &:hover {
+                border-top: solid 1px $primaryColor;
+
+                &::after {
+                    visibility: visible;
+                }
+            }
+        }
+
+        .line {
+            width: 100vw;
+            height: 1px;
+            background: $borderColor;
+            position: absolute;
+            left: -10vw;
+        }
+    }
+    .review-rows {
+        .review-rows__header {
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px $borderColor;
+            margin-bottom: 2rem;
+
+            h1 {
+                color: $darkgray;
+                margin-bottom: .5rem;
+            }
+
+            .count {
+                font-size: 2.5rem;
+                color: $lightgray;
+                margin: 0 0 2rem .5rem;
+            }
+        }
+        .review-row {
+            @include containerGrid;
+            margin-bottom: 5rem;
+        }
+    }
+    
 }
