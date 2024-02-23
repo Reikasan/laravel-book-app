@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +14,7 @@ class Review extends Model
     use HasFactory;
 
     protected $guarded=[];
+    protected $appends = ['month'];
 
     public function book(): BelongsTo
     {
@@ -26,5 +29,20 @@ class Review extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function getMonthAttribute()
+    {
+        return Carbon::parse($this->review_date)->format('m');
+    }
+
+    public function getMonthAndYearAttribute()
+    {
+        return Carbon::parse($this->review_date)->format('F.Y');
+    }
+
+    public function monthName(): string
+    {
+        return Carbon::parse($this->review_date)->format('F');
     }
 }
