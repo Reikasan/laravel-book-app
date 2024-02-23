@@ -22,9 +22,10 @@ It is still under construction, and I have recreated it using only Laravel.
 - [x] Create factories and Seeder
 - [x] Add Models
 - [x] Add Guest-login and logout function
-- [x] Fetch book data from Google Book API 🆕
-- [x] Show Fetched book data 🆕
-- [x] Show Review data on Index page.🆕
+- [x] Fetch book data from Google Book API
+- [x] Show Fetched book data
+- [x] Show Review data on Index page 🆕
+- [x] Separate reviews by month and year 🆕
 - [ ] CURD functions for Books and Reviews
 
 # Pages
@@ -33,4 +34,7 @@ It is still under construction, and I have recreated it using only Laravel.
 
 ## Book page
 ![Screenshot 2024-02-20 at 22 33 55](https://github.com/Reikasan/laravel-book-app/assets/68085523/298a9a88-9a29-4a0f-ae45-b15f951b40b7)
+
+## Reviews
+![Screenshot 2024-02-23 at 22 05 17](https://github.com/Reikasan/laravel-book-app/assets/68085523/3afa0b01-5231-460c-8d7a-f611d3b31086)
 
