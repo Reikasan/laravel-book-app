@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Repositories\ReviewRepository as ReviewRepository;
+use App\Repositories\ReviewRepository as ReviewRepository;
 
 class ReviewService
 {

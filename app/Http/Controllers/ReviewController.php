@@ -6,16 +6,22 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Services\BookService;
 use App\Services\ReviewService;
+use App\Services\WishlistService;
+use App\Models\User;
 
 class ReviewController extends Controller
 {
     private $bookService;
     private $reviewService;
+    private $wishlistService;
 
-    public function __construct(BookService $bookService, ReviewService $reviewService)
+    public function __construct(BookService $bookService, 
+                                ReviewService $reviewService,
+                                WishlistService $wishlistService)
     {
         $this->bookService = $bookService;
         $this->reviewService = $reviewService;
+        $this->wishlistService = $wishlistService;
     }
     /**
      * Index page paginated by year.
@@ -24,7 +30,7 @@ class ReviewController extends Controller
     {
         $reviewsByMonthAndYear = $this->reviewService->reviewsByMonthAndYear();
         $readMonth = $this->reviewService->getReadMonth();
-// dd($reviewsByMonthAndYear);
+        
         return view('pages.reviews', [
             'reviews' => $reviewsByMonthAndYear, 
             'readMonth' => $readMonth,
@@ -37,7 +43,12 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $wishlist = $this->wishlistService->getAll();
+
+        return view('pages.searchBook', [
+            'books' => $wishlist,
+            'type' => 'fromWishlist'
+        ]);
     }
 
     /**
