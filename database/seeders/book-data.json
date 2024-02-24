@@ -11,7 +11,7 @@
       "page_count": 128,
       "publisher": "TOPP",
       "published_date": "2019-02-11",
-      "categories": 1,
+      "categories": "History",
       "google_book_id": "moiNDwAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=moiNDwAAQBAJ&pg=PA5&dq=Me+time&hl=&cd=1&source=gbs_api",
       "created_at": "2021-11-01 15:00:00.00"
@@ -28,7 +28,7 @@
       "page_count": 160,
       "publisher": "White Lion Publishing",
       "published_date": "2021-01-05",
-      "categories": 18,
+      "categories": "History",
       "google_book_id": "crITEAAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=crITEAAAQBAJ&pg=PA3&dq=Me+time&hl=&cd=2&source=gbs_api",
       "created_at": "2021-12-01 15:00:00.00"
@@ -45,7 +45,7 @@
       "page_count": 38,
       "publisher": "Lulu.com",
       "published_date": "2016-12-25",
-      "categories": 2,
+      "categories": "History",
       "google_book_id": "lEvQDQAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=lEvQDQAAQBAJ&pg=PA10&dq=Me+time&hl=&cd=3&source=gbs_api",
       "created_at": "2022-12-01 15:00:00.00"
@@ -61,7 +61,7 @@
       "page_count": 222,
       "publisher": "AuthorHouse",
       "published_date": "2006-08-31",
-      "categories": 5,
+      "categories": "History",
       "google_book_id": "0HXZ-yl1eacC",
       "google_book_link": "http://books.google.de/books?id=0HXZ-yl1eacC&pg=RA1-PA145&dq=Me+time&hl=&cd=4&source=gbs_api",
       "created_at": "2023-11-21 15:00:00.00"
@@ -78,7 +78,7 @@
       "page_count": 125,
       "publisher": "FriesenPress",
       "published_date": "2022-03-31",
-      "categories": 16,
+      "categories": "History",
       "google_book_id": "xCNnEAAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=xCNnEAAAQBAJ&pg=PA25&dq=Me+time&hl=&cd=5&source=gbs_api",
       "created_at": "2023-10-01 15:00:00.00"
@@ -95,7 +95,7 @@
       "page_count": 400,
       "publisher": "Simon and Schuster",
       "published_date": "2021-02-16",
-      "categories": 12,
+      "categories": "History",
       "google_book_id": "qvvtDwAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=qvvtDwAAQBAJ&pg=PT41&dq=Me+time&hl=&cd=6&source=gbs_api",
       "created_at": "2023-09-01 15:00:00.00"
@@ -111,7 +111,7 @@
       "page_count": 6,
       "publisher": "OnlineSheetMusic.com",
       "published_date": "1853",
-      "categories": 9,
+      "categories": "History",
       "google_book_id": "RjW1dSnC69QC",
       "google_book_link": "http://books.google.de/books?id=RjW1dSnC69QC&pg=PP4&dq=Me+time&hl=&cd=7&source=gbs_api",
       "created_at": "2023-08-01 15:00:00.00"
@@ -127,7 +127,7 @@
       "page_count": 184,
       "publisher": "BoD – Books on Demand",
       "published_date": "2021-11",
-      "categories": 7,
+      "categories": "History",
       "google_book_id": "krezzgEACAAJ",
       "google_book_link": "http://books.google.de/books?id=krezzgEACAAJ&dq=Me+time&hl=&cd=8&source=gbs_api",
       "created_at": "2023-07-01 15:00:00.00"
@@ -144,7 +144,7 @@
       "page_count": 797,
       "publisher": "Springer",
       "published_date": "2007-07-05",
-      "categories": 3,
+      "categories": "History",
       "google_book_id": "8dFrCQAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=8dFrCQAAQBAJ&pg=PA564&dq=Me+time&hl=&cd=9&source=gbs_api",
       "created_at": "2023-06-01 15:00:00.00"
@@ -158,7 +158,7 @@
       "language":"en",
       "page_count": 384,
       "publisher": "David Gomadza",
-      "categories": 9,
+      "categories": "History",
       "google_book_id": "C3P3DwAAQBAJ",
       "google_book_link": "http://books.google.de/books?id=C3P3DwAAQBAJ&pg=PT422&dq=Me+time&hl=&cd=10&source=gbs_api",
       "created_at":"2023-09-11 15:00:00"

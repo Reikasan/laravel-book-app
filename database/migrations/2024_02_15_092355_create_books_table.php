@@ -25,9 +25,7 @@ return new class extends Migration
             $table->integer('page_count')->nullable();
             $table->string('publisher', 100)->nullable();
             $table->string('published_date', 100)->nullable();
-            $table->foreignId('categories')->constrained()
-                                            ->onDelete('cascade')
-                                            ->onUpdate('cascade');
+            $table->string('categories')->nullable();
             $table->string(('google_book_id'))->unique();
             $table->string('google_book_link', 255);
             $table->timestamps();
