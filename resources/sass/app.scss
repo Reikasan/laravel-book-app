@@ -13,7 +13,6 @@ $borderColor: #D3D3D3;
     gap: 2rem;
 }
 
-
 *, 
 *::after,
 *::before {
@@ -55,6 +54,11 @@ a {
     text-decoration: none;
     color: $primaryColor;
     font-weight: 700;
+}
+
+svg {
+    height: 2rem;
+    fill: $primaryColor;
 }
 
 section {
@@ -325,18 +329,50 @@ a.btn {
     &__content {
         margin-top: 3rem;
 
+        .feedback-panel {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+
+            svg {
+                fill: $darkgray;
+            }
+    
+            .like {
+                cursor: pointer;
+
+                svg.liked {
+                    fill: $secondaryColor;
+                }
+            }
+    
+            .review-count {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+    
+                .review-count__number {
+                    font-size: 1.4rem;
+                    color: $lightgray;
+                    margin: 1rem 0 .5rem;
+                }
+            }
+        }
+
         .review-date {
             font-size: 1.4rem;
             color: $lightgray;
             margin: 1rem 0 .5rem;
         }
         
-        .rating {
-            svg {
-                height: 2rem;
-                fill: $primaryColor;
-            }
-        }
+        // .rating {
+        //      {
+        //      svg   height: 2rem;
+        //         fill: $primaryColor;
+        //     }
+        // }
     }
 
     &__btn-container {
@@ -393,7 +429,7 @@ a.btn {
             align-items: center;
 
             svg {
-                height: 2rem;
+                fill: $darkgray;
             }
 
             p:last-of-type {
@@ -429,7 +465,6 @@ a.btn {
 
         svg {
             height: 10rem;
-            fill: $primaryColor;
         }
 
         span {
@@ -576,4 +611,33 @@ a.btn {
         }
     }
     
+}
+
+.search-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 10rem;
+
+    span {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $darkgray;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__item {
+        h1 {
+            color: $blue;
+            text-align: center;
+        }
+
+        .book-card__container {
+            @include containerGrid;
+        }
+
+        
+    }
 }
