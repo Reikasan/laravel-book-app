@@ -1,10 +1,14 @@
 <x-app>
     <x-book-searchbar />
     <div class="book-container">
-        {{-- books-b‚lade --}}
         @if(isset($books))
             @foreach($books as $book) 
-            <x-book-card :book="$book" :type="$type" />
+                @if($book->isReviewedByUser)
+                    @inject('bookService', 'App\Services\BookService')
+                    <x-review-card :review="$bookService->getUserReview($book)" />
+                @else
+                    <x-book-card :book="$book"/>
+                @endif
             @endforeach
         @endif
     </div>
