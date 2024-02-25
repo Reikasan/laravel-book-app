@@ -9,7 +9,7 @@ $borderColor: #D3D3D3;
 
 @mixin containerGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
 }
 
@@ -347,6 +347,18 @@ a.btn {
                     fill: $secondaryColor;
                 }
             }
+
+            .rating {
+                svg {
+                    fill: $primaryColor;
+                }
+            }
+
+            .review-date {
+                font-size: 1.4rem;
+                color: $lightgray;
+                margin: 1rem 0 .5rem;
+            }
     
             .review-count {
                 display: flex;
@@ -360,23 +372,14 @@ a.btn {
                 }
             }
         }
-
-        .review-date {
-            font-size: 1.4rem;
-            color: $lightgray;
-            margin: 1rem 0 .5rem;
-        }
-        
-        // .rating {
-        //      {
-        //      svg   height: 2rem;
-        //         fill: $primaryColor;
-        //     }
-        // }
     }
 
     &__btn-container {
-        .btn:first-of-type {
+        a {
+            display: inline-block;
+        }
+
+        .btn {
             margin-bottom: 0;
         }
         

@@ -8,16 +8,14 @@ use Illuminate\View\Component;
 
 class bookCard extends Component
 {
-    public $book;
-    public $type;
+    private $book;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($book, $type)
+    public function __construct($book)
     {
-       $this->book = $book; 
-       $this->type = $type;
+        $this->book = $book; 
     }
 
     /**
@@ -27,7 +25,6 @@ class bookCard extends Component
     {
         return view('components.book-card', [
             'book' => $this->book,
-            'type' =>$this->type
         ]);
     }
 }

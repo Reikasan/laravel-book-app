@@ -83,12 +83,9 @@ class BookController extends Controller
 
         return view('pages.books', [
             'books' => $books,
-            'type' => 'fetch'
         ]);
     }
-
     
-
     public function showFetchedBook(Request $request)
     {
         $validated = $request->validate([
