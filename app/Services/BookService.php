@@ -22,13 +22,17 @@ class BookService
     {
         if($type === 'isbn') {
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword . '&maxResults=40');
+            $books = $response->json();
+            $books = $this->handleBookData($books['items'], "toDatabase");
+            return $books[0];
+
         } else {
             $keyword = $this->cleanKeyword($keyword);
             $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword . '&maxResults=40');
+            $books = $response->json();
+            $books = $this->handleBookData($books['items']);
+            return $books;
         }
-        $books = $response->json();
-        $books = $this->handleBookData($books['items']);
-        return $type === 'isbn' ? $books[0] : $books;
     }
 
     private function cleanKeyword(string $keyword): string
@@ -38,7 +42,7 @@ class BookService
         return str_replace(' ', '+', $keyword);
     }
 
-    public function handleBookData(array $books): array
+    public function handleBookData(array $books, string $keyword = null): array
     {
         $mappedBooks = [];
         
@@ -49,7 +53,6 @@ class BookService
 
             if($this->bookRepository->isBookInDatabase($book['id'])) {
                 $item = $this->bookRepository->findBookByApiId($book['id']);
-                $item->isBookInDatabase = true;
                 $item->isReviewedByUser = $this->bookRepository->isBookReviewedByUser($item->id);
             } else {
                 $item = new Book();
@@ -68,8 +71,11 @@ class BookService
                 $item->categories = isset($book['volumeInfo']['categories'])? $book['volumeInfo']['categories'][0] : null;
                 $item->google_book_id = $book['id'];
                 $item->google_book_link = $book['selfLink'];
-                $item->isBookInDatabase = false;
-                $item->isReviewedByUser = false;
+
+                if($keyword !== "toDatabase") {
+                    $item->isReviewedByUser = false;
+                }
+                
             }
 
             $mappedBooks[] = $item;
@@ -77,8 +83,14 @@ class BookService
         return $mappedBooks;
     }
 
-    public function getUserReview(Book $book)
+    public function getUserReview(Book $book): object | null
     {
         return $this->bookRepository->getUserReview($book);
+    }
+
+    public function storeFetchedBook(string $isbn): Book
+    {
+        $bookFromApi = $this->fetchBook('isbn', $isbn);
+        return $this->bookRepository->returnStoredBook($bookFromApi);
     }
 }

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('categories')->nullable();
             $table->string(('google_book_id'))->unique();
             $table->string('google_book_link', 255);
+            $table->boolean('isBookInDatabase')->default(true);
             $table->timestamps();
         });
     }
