@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\BookService;
 use App\Services\ReviewService;
 use App\Services\WishlistService;
-use App\Models\User;
+use App\Models\Book;
 
 class ReviewController extends Controller
 {
@@ -39,7 +39,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the search Book page.
      */
     public function create()
     {
@@ -49,6 +49,14 @@ class ReviewController extends Controller
             'books' => $wishlist,
             'type' => 'fromWishlist'
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function createBookReview(Book $book)
+    {
+        return view('pages.createReview', ['book' => $book]);
     }
 
     /**
@@ -95,7 +103,7 @@ class ReviewController extends Controller
     {
         $isbn = $request->input('isbn') != null ? $request->input('isbn') : $request->input('isbn13'); 
 
-        $book = $this->bookService->fetchBook('isbn', $isbn);
+        $book = $this->bookService->storeFetchedBook($isbn);
         return view('pages.createReview', ['book' => $book]);
     }
 }

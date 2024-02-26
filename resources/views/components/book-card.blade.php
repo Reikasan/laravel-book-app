@@ -31,7 +31,8 @@
     </div>
     @if($book->isBookInDatabase)
     <div class="book-card__btn-container">
-        <button class="btn btn--primary" href="{{ route('books.show', ['book' => $book->id])}}">Learn More</button>
+        <a class="btn btn--secondary" href="{{ route('books.show', ['book' => $book->id])}}">Book Details</a>
+        <a class="btn btn--secondary" href="{{ route('reviews.createBookReview', ['book' => $book->id])}}">Review it</a>
     </div>
     @else
     <div class="book-card__btn-container">

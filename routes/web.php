@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('reviews', ReviewController::class)->except(['index']);
     Route::get('reviews/all/{year}', [ReviewController::class, 'indexByYear'])->name('reviews.indexByYear');
+    Route::get('reviews/create/{book}', [ReviewController::class, 'createBookReview'])->name('reviews.createBookReview');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');
 });
 
