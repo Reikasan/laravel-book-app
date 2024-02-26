@@ -445,6 +445,28 @@ a.btn {
 .reviewed-books--recently {
     .reviews-row {
         @include containerGrid;
+
+        &:has(.no-item) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .no-item {
+                font-size: 2rem;
+                color: $darkgray;
+                text-align: center;
+                margin-top: 5rem;
+            }
+
+            .btn {
+                width: 20rem;
+                height: 5rem;
+                padding: 1.5rem;
+            }
+        }
+
+        
     }
 }
 
@@ -513,10 +535,16 @@ a.btn {
 }
 
 .review {
+    max-width: 1000px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: .75fr 1fr;
+    grid-template-columns: .5fr 1fr;
     justify-content: center;
-    gap: 1rem;
+    gap: 5rem;
+
+    .book-details {
+        grid-template-columns: 1fr;
+    }
 }
 
 .review-container {

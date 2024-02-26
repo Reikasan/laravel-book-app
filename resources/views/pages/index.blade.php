@@ -2,11 +2,16 @@
     <div>
         <x-book-searchbar />
         <section class="reviewed-books--recently">
-            <h2>Recently Reviewed</h2>
+            <h1>Recently Reviewed</h1>
             <div class="reviews-row">
-                @foreach ($latestReviews as $latestReview)
-                    <x-review-card :review="$latestReview" />
-                @endforeach
+                @if(count($latestReviews) == 0)
+                    <h2 class="no-item">No reviews in 30 Days</h2>
+                    <a class="btn btn-primary" href="{{ route('reviews.index')}}">All Reviews</a>
+                @else
+                    @foreach ($latestReviews as $latestReview)
+                        <x-review-card :review="$latestReview" />
+                    @endforeach
+                @endif
             </div>
         </section>
         <section class="actions">

@@ -23,6 +23,13 @@ class ReviewController extends Controller
         $this->reviewService = $reviewService;
         $this->wishlistService = $wishlistService;
     }
+
+    public function index()
+    {
+        $year = now()->year;
+        return $this->indexByYear($year);
+    }
+    
     /**
      * Index page paginated by year.
      */
