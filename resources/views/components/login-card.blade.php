@@ -24,14 +24,15 @@
             </div>
         </form>
         <div class="login-card__divider">
-            <div class="line">
-            <span>or</span>
+            <div class="line"> </div>
+                <span>or</span>
+           
         </div>
-        <form method="get" action={{route('guest-login')}}>
-            <div class="form-group">
-                <input type="submit" class="btn btn--secondary guest-login-btn" value="Try as guest" />
-            </div>
-        </form>
+        <div class="form-group">
+            <a href={{ route('guest-login')}} class="btn btn--secondary guest-login-btn">
+                Try as guest
+            </a>
+        </div>
     </div>
     <div class="login-card__footer">
         <p>No account yet?</p>
