@@ -1,0 +1,49 @@
+.nav {
+    width: 100vw;
+    height: 12rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1rem 3rem;
+
+    .logo {
+        height: 12rem;
+        overflow-y: hidden;
+        display: inline-block;
+
+        img {
+            margin: -2rem 0 0 0;
+            height: 140%;
+        }
+    }
+
+    &__btn--sq {
+        width: 6rem;
+        height: 6rem;
+        padding: .5rem;
+        line-height: 1.3rem;
+        text-align: right;
+        border: solid 2px $black;
+        color: $black;
+        background: $white;
+        font-size: 2rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        transition: all 0.3s;
+
+        span {
+            letter-spacing: -2px;
+            display: inline-block;
+            font-size: 2rem;
+        }
+
+
+        &:hover {
+            background: $primaryColor;
+            color: $white;
+            border-color: $primaryColor;
+        }
+    }
+}

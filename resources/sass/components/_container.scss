@@ -1,0 +1,15 @@
+.container {
+    width: 100vw;
+    min-height: calc(100vh - 12rem);
+    padding-inline: 10vw;
+    margin-bottom: 8rem;
+
+    &.full-width {
+        margin-bottom: 0;
+        padding-inline: 0;
+    }
+}
+
+.book-container {
+    @include containerGrid;
+}

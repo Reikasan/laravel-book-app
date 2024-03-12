@@ -1,0 +1,33 @@
+a.btn {
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 100%;
+    height: 4rem;
+    margin: 1rem 0;
+    padding: 0 1rem;
+    border: none;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    @include primaryBtn;
+
+    &:hover {
+       @include secondaryBtn; 
+    }
+
+    &--secondary {
+        @include secondaryBtn;
+       
+        &:hover {
+            @include primaryBtn; 
+         }
+    }
+}
+
+

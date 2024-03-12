@@ -1,0 +1,17 @@
+@mixin containerGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Button */
+@mixin primaryBtn {
+    background: $primaryColor;
+    color: $white;
+}
+
+@mixin secondaryBtn {
+    background: $white;
+    border: solid 1px $primaryColor;
+    color: $primaryColor;
+}

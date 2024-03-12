@@ -1,0 +1,23 @@
+.reviewed-books--recently {
+    .reviews-row {
+        @include containerGrid;
+
+        &:has(.no-item) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .no-item {
+                font-size: 2rem;
+                color: $darkgray;
+                text-align: center;
+                margin-top: 5rem;
+            }
+
+            .btn {
+                width: 20rem;
+            }
+        }    
+    }
+}

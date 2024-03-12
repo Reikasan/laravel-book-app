@@ -1,0 +1,28 @@
+.create-review-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 10rem;
+
+    span {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $darkgray;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__item {
+        h1 {
+            color: $blue;
+            text-align: center;
+        }
+
+        .book-card__container {
+            @include containerGrid;
+        }
+
+        
+    }
+}
