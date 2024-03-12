@@ -52,7 +52,7 @@ class ReviewController extends Controller
     {
         $wishlist = $this->wishlistService->getAll();
 
-        return view('pages.searchBook', [
+        return view('pages.createReviewSearch', [
             'books' => $wishlist,
             'type' => 'fromWishlist'
         ]);
