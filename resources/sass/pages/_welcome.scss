@@ -20,4 +20,13 @@
             }
         }
     }
+
+    label {
+        order: -1;
+        transform: translateY(20px);
+    }
+
+    input.form-control:focus + label {
+        transform: translateY(-2px);
+    }
 }

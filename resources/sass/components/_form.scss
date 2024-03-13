@@ -13,13 +13,16 @@
     }
     
     label {
-        order: -1;
-        padding-left: 5px;
+        display: inline-block;
+        width: fit-content;
+        margin-left: 1rem;
+        background-color: $white;
         transition: all .2s ease-in-out;
-        transform: translateY(20px);
         pointer-events: none;
         font-size: 1.6rem;
-        color: $darkgray;
+        font-weight: 700;
+        color: $lightgray;
+        transform: translateY(10px);
         text-transform: capitalize;
     }
 
@@ -31,9 +34,19 @@
         border: none;
         border-bottom: 1px solid $borderColor;
         font-size: 1.4rem;
+
+        &:focus {
+            outline: none;
+            border-color: $blue;
+        }
     }
 
-    input.form-control:focus + label {
-        transform: translateY(-2px);
+    textarea {
+        border-radius: 3px;
+
+        &:focus {
+            outline: none;
+            border-color: $blue;
+        }
     }
 }
