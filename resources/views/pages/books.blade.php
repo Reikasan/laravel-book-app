@@ -7,7 +7,7 @@
                     @inject('bookService', 'App\Services\BookService')
                     <x-review-card :review="$bookService->getUserReview($book)" />
                 @else
-                    <x-book-card :book="$book"/>
+                    <x-book-card :book="$book" :isBookReviewedByUser=false/>
                 @endif
             @endforeach
         @endif

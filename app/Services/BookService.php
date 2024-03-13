@@ -93,4 +93,9 @@ class BookService
         $bookFromApi = $this->fetchBook('isbn', $isbn);
         return $this->bookRepository->returnStoredBook($bookFromApi);
     }
+
+    public function isBookReviewedByUser(int $bookId): bool
+    {
+        return $this->bookRepository->isBookReviewedByUser($bookId);
+    }
 }

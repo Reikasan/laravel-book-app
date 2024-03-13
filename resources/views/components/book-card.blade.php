@@ -32,7 +32,9 @@
     @if($book->isBookInDatabase)
     <div class="book-card__btn-container">
         <a class="btn btn--secondary" href="{{ route('books.show', ['book' => $book->id])}}">Book Details</a>
+        @if(!$isBookReviewedByUser)
         <a class="btn btn--secondary" href="{{ route('reviews.createBookReview', ['book' => $book->id])}}">Review it</a>
+        @endif
     </div>
     @else
     <div class="book-card__btn-container">
@@ -46,7 +48,9 @@
             @csrf
             <input type="hidden" name="isbn" value="{{ $book->isbn }}">
             <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
+            @if(!$isBookReviewedByUser)
             <button type="submit" class="btn btn--secondary">Review it</button>
+            @endif
         </form>
     </div>
     @endif  
