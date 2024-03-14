@@ -22,7 +22,7 @@
                 <div class="form-group w-harf">
                     <div class="rating">
                         @for($i = 0; $i < 5; $i++)
-                        <i class="fa-regular fa-star"></i>
+                        <i class="icon fa-regular fa-star"></i>
                         @endfor
                         <input type="number" name="review-rate" value=0 hidden>
                     </div>
