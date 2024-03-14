@@ -41,6 +41,16 @@ a {
     font-weight: 700;
 }
 
+svg {
+    font-size: 2rem;
+    fill: $primaryColor;
+}
+
 section {
     margin-bottom: 8rem;
+}
+
+.icon {
+    font-size: 40px;
+    color: $primaryColor;
 }

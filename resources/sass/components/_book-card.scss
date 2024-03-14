@@ -27,22 +27,24 @@
             align-items: center;
             margin-bottom: 1rem;
             gap: 1rem;
-
-            svg {
-                fill: $darkgray;
-            }
     
-            .like {
-                cursor: pointer;
+            .icon {
+                font-size: 3rem;
+                color: $lightgray;
+                margin-right: .5rem;
 
-                svg.liked {
-                    fill: $secondaryColor;
+                &.fa-heart {
+                    cursor: pointer;
+
+                    &.fa-solid {
+                        color: $secondaryColor;
+                    }
                 }
             }
 
             .rating {
-                svg {
-                    fill: $primaryColor;
+                .icon {
+                    cursor: auto;
                 }
             }
 
