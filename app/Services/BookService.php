@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreBookRequest;
 use Illuminate\Support\Facades\Http;
 use App\Models\Book;
 use App\Repositories\BookRepository as BookRepository;
+use Illuminate\Support\Facades\Cache;
 
 class BookService
 {
@@ -21,18 +23,28 @@ class BookService
     public function fetchBook(string $type, string $keyword)
     {
         if($type === 'isbn') {
-            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $keyword . '&maxResults=40');
-            $books = $response->json();
-            $books = $this->handleBookData($books['items'], "toDatabase");
-            return $books[0];
+            return $book = Cache::get($keyword);
+
+            if(!$book) {
+                $books = $this->getBookDataFromAPI($type, $keyword);
+                return $books[0];
+            } 
 
         } else {
             $keyword = $this->cleanKeyword($keyword);
-            $response = Http::get('https://www.googleapis.com/books/v1/volumes?q=' . $keyword . '&maxResults=40');
-            $books = $response->json();
-            $books = $this->handleBookData($books['items']);
-            return $books;
+            return $this->getBookDataFromAPI($type, $keyword);
         }
+    }
+
+    private  function getBookDataFromAPI(string $type, string $keyword): array 
+    {
+        $url = 'https://www.googleapis.com/books/v1/volumes?q=:';
+        $type === 'isbn' ? $url .'isbn:' : $url;
+        
+        $response = Http::get($url. $keyword. '&maxResults=40');
+        $books = $response->json();
+        $books = $this->handleBookData($books['items']);
+        return $books;
     }
 
     private function cleanKeyword(string $keyword): string
@@ -72,12 +84,13 @@ class BookService
                 $item->google_book_id = $book['id'];
                 $item->google_book_link = $book['selfLink'];
 
-                if($keyword !== "toDatabase") {
+                // if($keyword !== "toDatabase") {
                     $item->isReviewedByUser = false;
-                }
+                // }
+                $item->isBookInDatabase = false;
                 
             }
-
+            $this->storeBookInCache($item);
             $mappedBooks[] = $item;
         }
         return $mappedBooks;
@@ -88,14 +101,22 @@ class BookService
         return $this->bookRepository->getUserReview($book);
     }
 
-    public function storeFetchedBook(string $isbn): Book
+
+    public function storeFetchedBook($book): Book
     {
-        $bookFromApi = $this->fetchBook('isbn', $isbn);
-        return $this->bookRepository->returnStoredBook($bookFromApi);
+        // $bookFromApi = $this->fetchBook('isbn', $isbn);
+
+        return $this->bookRepository->returnStoredBook($book);
     }
 
     public function isBookReviewedByUser(int $bookId): bool
     {
         return $this->bookRepository->isBookReviewedByUser($bookId);
+    }
+
+    private function storeBookInCache($book)
+    {
+        $isbn = $book->isbn !== "" ? $book->isbn : $book->isbn13;
+        Cache::put($isbn, $book, 60*60);
     }
 }
