@@ -11,4 +11,9 @@ class WishlistRepository
                         ->orderBy('created_at', 'desc')
                         ->get();
     }
+
+    public function store(array $data)
+    {
+        return Wishlist::create($data);
+    }
 }

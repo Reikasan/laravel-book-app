@@ -13,6 +13,11 @@ class Wishlist extends Model
     protected $table = 'wishlists';
     public $timestamps = true;
 
+    protected $fillable = [
+        'user_id',
+        'book_id',
+    ];
+
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);

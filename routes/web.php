@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reviews/create/{book}', [ReviewController::class, 'createBookReview'])->name('reviews.createBookReview');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');
 
-
+    Route::resource('wishlist', WishlistController::class);
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });

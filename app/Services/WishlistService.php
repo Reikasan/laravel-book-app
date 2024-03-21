@@ -18,4 +18,9 @@ class WishlistService
     {
         return $this->wishlistRepository->getAll();
     }
+
+    public function store(array $data)
+    {
+        return $this->wishlistRepository->store($data);
+    }
 }
