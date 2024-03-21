@@ -102,10 +102,9 @@ class BookService
     }
 
 
-    public function storeFetchedBook($book): Book
+    public function storeFetchedBook($isbn): Book
     {
-        // $bookFromApi = $this->fetchBook('isbn', $isbn);
-
+        $book = $this->getBookFromCache($isbn);
         return $this->bookRepository->returnStoredBook($book);
     }
 
@@ -118,5 +117,10 @@ class BookService
     {
         $isbn = $book->isbn !== "" ? $book->isbn : $book->isbn13;
         Cache::put($isbn, $book, 60*60);
+    }
+
+    private function getBookFromCache($isbn)
+    {
+        return Cache::get($isbn);
     }
 }

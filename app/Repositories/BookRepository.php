@@ -25,4 +25,16 @@ class BookRepository
         $userId = auth()->id();
         return $book->reviews->where('user_id', $userId)->first();
     }
+
+    public function returnStoredBook(Book $book): object | null
+    {
+        if(isset($book->isReviewedByUser)) {
+            unset($book->isReviewedByUser);
+        }
+
+        if($book->save()) {
+            return $book;
+        }
+        return null;
+    }
 }
