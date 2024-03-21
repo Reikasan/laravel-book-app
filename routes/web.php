@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reviews/all/{year}', [ReviewController::class, 'indexByYear'])->name('reviews.indexByYear');
     Route::get('reviews/create/{book}', [ReviewController::class, 'createBookReview'])->name('reviews.createBookReview');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');
+
+
+
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
 
