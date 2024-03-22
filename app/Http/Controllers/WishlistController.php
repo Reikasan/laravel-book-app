@@ -30,6 +30,7 @@ class WishlistController extends Controller
                 'book_id' => 'string',
                 'isbn' => 'nullable|string|max:100',
                 'isbn13' => 'nullable|string|max:100',
+                'asynchronous' => 'nullable|string',
             ]);
             
             if(!isset($inputs['book_id'])) {
@@ -45,13 +46,17 @@ class WishlistController extends Controller
             unset($inputs['isbn13']);
             
             $this->wishlistService->store($inputs);
-            // Return a success message
-            // return response()->json(['message' => 'Successfully added to wishlist'], 200);
+
+            if(isset($inputs['asynchronous'])) {
+                return response()->json(['success' => true], 200);
+            }
+            
             return redirect()->route('books.show', ['book' => $book]);
         } catch (\Exception $e) {
-            // Return an error message
-            // return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
-        dd($e->getMessage());
+            if(isset($inputs['asynchronous'])) {
+                return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+            }
+            dd($e->getMessage());
         }
     }
 }
