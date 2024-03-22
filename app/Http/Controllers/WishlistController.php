@@ -28,23 +28,30 @@ class WishlistController extends Controller
         try {
             $inputs = $request->validate([
                 'book_id' => 'string',
-                'isbn' => 'required|string|max:100',
+                'isbn' => 'nullable|string|max:100',
+                'isbn13' => 'nullable|string|max:100',
             ]);
             
-            if($inputs['book_id'] === 'null') {
-                $book = $this->bookService->storeFetchedBook($inputs['isbn']);
+            if(!isset($inputs['book_id'])) {
+                $isbn = $inputs['isbn'] ? $inputs['isbn'] : $inputs['isbn13'];
+                $book = $this->bookService->storeFetchedBook($isbn);
                 $inputs['book_id'] = $book->id;
-            } 
+            } else {
+                $book = $this->bookService->getBookById($inputs['book_id']);
+            }
 
             $inputs['user_id'] = auth()->id();
             unset($inputs['isbn']);
+            unset($inputs['isbn13']);
             
             $this->wishlistService->store($inputs);
             // Return a success message
-            return response()->json(['message' => 'Successfully added to wishlist'], 200);
+            // return response()->json(['message' => 'Successfully added to wishlist'], 200);
+            return redirect()->route('books.show', ['book' => $book]);
         } catch (\Exception $e) {
             // Return an error message
-            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+            // return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+        dd($e->getMessage());
         }
     }
 }

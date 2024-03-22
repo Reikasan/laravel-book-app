@@ -32,9 +32,18 @@ class BookRepository
             unset($book->isReviewedByUser);
         }
 
+        if(!$book->isBookInDatabase) {
+            $book->isBookInDatabase = true;
+        }
+
         if($book->save()) {
             return $book;
         }
         return null;
+    }
+
+    public function getBookById($bookId): object | null
+    {
+        return Book::find($bookId);
     }
 }

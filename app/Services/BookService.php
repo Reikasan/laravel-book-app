@@ -123,4 +123,9 @@ class BookService
     {
         return Cache::get($isbn);
     }
+
+    public function getBookById(int $id): Book
+    {
+        return $this->bookRepository->getBookById($id);
+    }
 }
