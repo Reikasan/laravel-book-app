@@ -45,10 +45,10 @@ class WishlistController extends Controller
             unset($inputs['isbn']);
             unset($inputs['isbn13']);
             
-            $this->wishlistService->store($inputs);
+            $savedItem = $this->wishlistService->store($inputs);
 
             if(isset($inputs['asynchronous'])) {
-                return response()->json(['success' => true], 200);
+                return response()->json(['wishlistId' => $savedItem->id], 200);
             }
             
             return redirect()->route('books.show', ['book' => $book]);
@@ -57,6 +57,23 @@ class WishlistController extends Controller
                 return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
             }
             dd($e->getMessage());
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Wishlist $wishlist)
+    {
+        try {
+            if(!$this->wishlistService->isOwnedByUser($wishlist->id)) {
+                return;
+            }
+            $this->wishlistService->destroy($wishlist);
+            return response()->json(['success' => true], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error'. $e->getMessage()], 500);
+
         }
     }
 }

@@ -16,4 +16,16 @@ class WishlistRepository
     {
         return Wishlist::create($data);
     }
+
+    public function destroy(object $wishlist)
+    {
+        return $wishlist->delete();
+    }
+
+    public function isOwnedByUser(int $wishlistId)
+    {
+        return Wishlist::where('id', $wishlistId)
+                        ->where('user_id', auth()->id())
+                        ->exists();
+    }
 }

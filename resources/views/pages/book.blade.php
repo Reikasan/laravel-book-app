@@ -27,7 +27,7 @@
                     @endif
 
                     @if($book->wishlist->contains('user_id', Auth::id()))
-                    <button type="submit" class="btn btn--secondary wishlist-btn wishlist-btn--remove">Remove from Wishlist</button>
+                    <button type="submit" class="btn btn--secondary wishlist-btn wishlist-btn--remove" data-wishlist-id={{ $book->wishlist->firstWhere('user_id', Auth::id())->id}}>Remove from Wishlist</button>
                     @else
                     <button type="submit" class="btn btn--primary wishlist-btn wishlist-btn--add">Add to Wishlist</button>
                     @endif

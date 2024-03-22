@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Repositories\WishlistRepository as WishlistRepository;
 use App\Repositories\WishlistRepository as RepositoriesWishlistRepository;
 
 class WishlistService 
@@ -22,5 +21,15 @@ class WishlistService
     public function store(array $data)
     {
         return $this->wishlistRepository->store($data);
+    }
+
+    public function destroy(object $wishlist)
+    {
+        return $this->wishlistRepository->destroy($wishlist);
+    }
+
+    public function isOwnedByUser(int $wishlistId): bool
+    {
+        return $this->wishlistRepository->isOwnedByUser($wishlistId);
     }
 }

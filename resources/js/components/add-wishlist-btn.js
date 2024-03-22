@@ -42,22 +42,50 @@ function addToWishlist(e) {
         if(!response.ok) {
             throw new Error('Network response was not ok');
         }
-        changeWishlistBtnText(e.target);
         return response.json();
+    })
+    .then(data => {
+        const id = data.wishlistId;
+        changeWishlistBtnText(e.target, id);
     })
     .catch(error => {
         alert('Error: ' + error.message);
     });
 }
 
-function changeWishlistBtnText(item) {
+function removeFromWishlist(e) {
+    e.preventDefault();
+    const wishlistId = e.target.dataset['wishlistId'];
+    fetch(`/wishlist/${wishlistId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken.value
+        },
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        changeWishlistBtnText(e.target);
+    })
+    .catch(error => {
+        alert('Error: ' + error.message);
+    });
+
+}
+
+function changeWishlistBtnText(item, id = null) {
    if(item.classList.contains('wishlist-btn--add')) {
         item.classList.remove('wishlist-btn--add');
         item.classList.add('wishlist-btn--remove');
         item.textContent = 'Remove from Wishlist';
+        if(id !== null) {
+            item.setAttribute('data-wishlist-id', id);
+        }
    } else {
         item.classList.remove('wishlist-btn--remove');
         item.classList.add('wishlist-btn--add');
         item.textContent = 'Add to Wishlist';
+        item.removeAttribute('data-wishlist-id');
    }
 }
