@@ -24,9 +24,9 @@ It is still under construction, and I have recreated it using only Laravel.
 - [x] Add Guest-login and logout function
 - [x] Fetch book data from Google Book API
 - [x] Show Fetched book data
-- [x] Show Review data on Index page 🆕
-- [x] Separate reviews by month and year 🆕
-- [ ] CURD functions for Books and Reviews
+- [x] Show Review data on Index page
+- [x] Separate reviews by month and year
+- [x] Add/Remove Wishlist function 🆕
 
 # Pages
 ## Search from Google Book API 
