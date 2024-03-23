@@ -6,9 +6,28 @@
         <div class="feedback-panel">
             <div class="icons">
                 @if($book->wishlist->contains('user_id', Auth::id()))
-                <i class="icon fa-solid fa-heart"></i>
+                <i class="icon 
+                    fa-solid 
+                    fa-heart 
+                    wishlist-icon 
+                    wishlist-icon--remove"
+                    @if($book->wishlist->firstWhere('user_id', Auth::id()) !== null)
+                    data-wishlist-id={{ $book->wishlist->firstWhere('user_id', Auth::id())->id}}
+                    @endif
+                    ></i>
                 @else
-                <i class="icon fa-regular fa-heart"></i>
+                <i class="icon 
+                    fa-regular 
+                    fa-heart 
+                    wishlist-icon 
+                    wishlist-icon--add"
+                    @if($book->id !== null)
+                    data-book-id={{ $book->id}}
+                    @else
+                    data-book-isbn={{ $book->isbn}}
+                    data-book-isbn13={{ $book->isbn13}}
+                    @endif
+                    ></i>
                 @endif
                 <i class="icon fa-regular fa-comments"></i>
             </div>
@@ -42,7 +61,7 @@
             @csrf
             <input type="hidden" name="isbn" value="{{ $book->isbn }}">
             <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
-            <button type="submit" class="btn btn--secondary">Book Details</button>
+            <button type="submit" class="btn btn--secondary show-details-btn">Book Details</button>
         </form>
         <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
             @csrf

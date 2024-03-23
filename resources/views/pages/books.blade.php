@@ -1,6 +1,7 @@
 <x-app>
     <x-book-searchbar />
     <div class="book-container">
+        @csrf
         @if(isset($books))
             @foreach($books as $book) 
                 @if($book->isReviewedByUser)

@@ -1,21 +1,35 @@
 const wishlistBtns = document.querySelectorAll('.wishlist-btn');
 const bookId = document.querySelector('input[name=book_id]');
-const csrfToken = document.querySelector('form.wishlist-form > input[name="_token"]');
+const wishlistIcons = document.querySelectorAll('.wishlist-icon');
+const csrfToken = document.querySelector('input[name="_token"]');
 
 wishlistBtns.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-        // If Book is not in DB yet, do not add to wishlist from JavaScript
-        if(!isBookInDB(bookId)) {
+    btn.addEventListener('click', (e) => manipulateWishlistItems(e));
+});
+
+wishlistIcons.forEach((icon) => {
+    icon.addEventListener('click', (e) => manipulateWishlistItems(e));
+});
+
+function manipulateWishlistItems(e) {
+    let item;
+    if(e.target.classList.contains('wishlist-icon')) {
+        item = 'icon';
+    } else {
+        item = 'btn';
+    }
+
+    if(e.target.classList.contains('wishlist-btn--add') || e.target.classList.contains('wishlist-icon--add')) {
+        // If Book is not in DB yet and it is from book page, do not add to wishlist from JavaScript 
+        if(!isBookInDB(bookId) && item === 'btn') {
             return;
         } 
 
-        if(btn.classList.contains('wishlist-btn--add')) {
-            addToWishlist(e);
-        } else {
-            removeFromWishlist(e);
-        }
-    });
-});
+        addToWishlist(e, item);
+    } else {
+        removeFromWishlist(e, item);
+    }
+}
 
 function isBookInDB(bookId) {
     if(bookId === null) {
@@ -24,12 +38,10 @@ function isBookInDB(bookId) {
     return true;
 }
 
-function addToWishlist(e) {
+function addToWishlist(e, item) {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('book_id', bookId.value);
-    formData.append('asynchronous', true);
+    const formData = createFormData(e, item);
 
     fetch('/wishlist', {
         method: 'POST',
@@ -46,14 +58,14 @@ function addToWishlist(e) {
     })
     .then(data => {
         const id = data.wishlistId;
-        changeWishlistBtnText(e.target, id);
+        changeSign(e.target, item, id);
     })
     .catch(error => {
         alert('Error: ' + error.message);
     });
 }
 
-function removeFromWishlist(e) {
+function removeFromWishlist(e, item) {
     e.preventDefault();
     const wishlistId = e.target.dataset['wishlistId'];
     fetch(`/wishlist/${wishlistId}`, {
@@ -66,7 +78,7 @@ function removeFromWishlist(e) {
         if(!response.ok) {
             throw new Error('Network response was not ok');
         }
-        changeWishlistBtnText(e.target);
+        changeSign(e.target, item);
     })
     .catch(error => {
         alert('Error: ' + error.message);
@@ -74,18 +86,67 @@ function removeFromWishlist(e) {
 
 }
 
-function changeWishlistBtnText(item, id = null) {
-   if(item.classList.contains('wishlist-btn--add')) {
-        item.classList.remove('wishlist-btn--add');
-        item.classList.add('wishlist-btn--remove');
-        item.textContent = 'Remove from Wishlist';
+function createFormData(e, item) {
+    const formData = new FormData();
+
+    if(item === 'btn') {
+        formData.append('book_id', bookId.value);
+        return formData;
+    } else if(item === 'icon') {
+        if(e.target.dataset['bookId'] !== undefined) {
+            formData.append('book_id', e.target.dataset['bookId']);
+        } else {
+            formData.append('isbn', e.target.dataset['bookIsbn']);
+            formData.append('isbn13', e.target.dataset['bookIsbn13']);
+        }
+    }
+    formData.append('asynchronous', true);
+    return formData;
+}
+
+function changeSign(element, item, id = null) {
+    if(item === 'btn') {
+        changeWishlistBtnText(element, id);
+    }
+    if(item === 'icon') {
+        changeWishlistIcon(element, id);
+    }
+}
+
+function changeWishlistBtnText(element, id = null) {
+   if(element.classList.contains('wishlist-btn--add')) {
+        element.classList.remove('wishlist-btn--add');
+        element.classList.add('wishlist-btn--remove');
+        element.textContent = 'Remove from Wishlist';
         if(id !== null) {
-            item.setAttribute('data-wishlist-id', id);
+            element.setAttribute('data-wishlist-id', id);
         }
    } else {
-        item.classList.remove('wishlist-btn--remove');
-        item.classList.add('wishlist-btn--add');
-        item.textContent = 'Add to Wishlist';
-        item.removeAttribute('data-wishlist-id');
+        element.classList.remove('wishlist-btn--remove');
+        element.classList.add('wishlist-btn--add');
+        element.textContent = 'Add to Wishlist';
+        element.removeAttribute('data-wishlist-id');
    }
+}
+
+function changeWishlistIcon(element, id) {
+    if(element.classList.contains('wishlist-icon--add')) {
+        element.classList.remove('wishlist-icon--add');
+        element.classList.remove('fa-regular');
+        element.classList.add('wishlist-icon--remove');
+        element.classList.add('fa-solid');
+        element.setAttribute('data-wishlist-id', id);
+        if(element.dataset['bookIsbn'] !== undefined) {
+            element.removeAttribute('data-book-isbn');
+        }
+        if(element.dataset['bookIsbn13'] !== undefined) {
+            element.removeAttribute('data-book-isbn13');
+        }
+    } else {
+        element.classList.remove('wishlist-icon--remove');
+        element.classList.remove('fa-solid');        
+        element.classList.add('wishlist-icon--add');
+        element.classList.add('fa-regular');
+        element.removeAttribute('data-wishlist-id');
+    }
 }
