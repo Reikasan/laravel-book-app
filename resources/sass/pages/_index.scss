@@ -1,8 +1,8 @@
 .book-card-container {
     .single-row-grid {
         @include containerGrid;
-    
-        height: 510px;
+        height: 515px;
+        padding-bottom: 2rem;
         overflow: hidden;
 
         &:has(.no-item) {

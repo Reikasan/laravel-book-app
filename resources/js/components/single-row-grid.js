@@ -1,4 +1,5 @@
 const singleRowGrids = document.querySelectorAll('.single-row-grid');
+const singleRowMaxHeight = 550;
 
 window.addEventListener('load', changeBtnVisibility);
 
@@ -7,7 +8,7 @@ function changeBtnVisibility() {
         const row = singleRowGrid.parentElement.querySelector('.row');
         const showMore = singleRowGrid.parentElement.querySelector('.show-more-btn');
 
-        if(row.scrollHeight > singleRowGrid.offsetHeight) {
+        if(row.scrollHeight > singleRowMaxHeight) {
             showMore.parentElement.classList.remove('hidden');
         }
     });
