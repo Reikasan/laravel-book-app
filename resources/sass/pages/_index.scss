@@ -1,6 +1,9 @@
-.reviewed-books--recently {
-    .reviews-row {
+.book-card-container {
+    .single-row-grid {
         @include containerGrid;
+    
+        height: 510px;
+        overflow: hidden;
 
         &:has(.no-item) {
             display: flex;
@@ -17,6 +20,20 @@
 
             .btn {
                 width: 20rem;
+            }
+        }    
+    
+        + .btn-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 2rem;
+
+            &.hidden {
+                display: none;
+            }
+
+            & a {
+                grid-column: 2 / span 1;
             }
         }    
     }
