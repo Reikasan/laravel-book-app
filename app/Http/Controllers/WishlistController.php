@@ -23,6 +23,12 @@ class WishlistController extends Controller
         $this->wishlistService = $wishlistService;
     }
 
+    public function index()
+    {
+        $wishlists = $this->wishlistService->getAll();
+        return view('pages.wishlists', compact('wishlists'));
+    }
+
     public function store(Request $request)
     {
         try {

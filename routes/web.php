@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reviews/create/{book}', [ReviewController::class, 'createBookReview'])->name('reviews.createBookReview');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');
 
-    Route::resource('wishlist', WishlistController::class)->only(['store', 'destroy']);
+    Route::resource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy']);
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
