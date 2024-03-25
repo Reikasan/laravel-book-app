@@ -1,24 +1,22 @@
 <x-app>
     <div class="book">
         <div class="book-details">
+            @csrf
             <div class="book-details__img">
                 <img 
                     src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
                     alt="{{ $book->title }}"/>
                 @if($book->id == "")
                 <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
-                    @csrf
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
                     @else
                 <form method="POST" action="{{ route('reviews.createBookReview', ['book' => $book->id]) }}">
-                    @csrf
                     <input type="hidden" name="book_id" value="{{ $book->id }}">
                     @endif
                     <button type="submit" class="btn btn--primary">Add review</button>
                 </form>
                 <form class="wishlist-form" method="POST" action="{{ route('wishlist.store') }}">
-                    @csrf
                     @if($book->id == "")
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
