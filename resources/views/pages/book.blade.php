@@ -10,12 +10,10 @@
                 <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
-                    @else
-                <form method="POST" action="{{ route('reviews.createBookReview', ['book' => $book->id]) }}">
-                    <input type="hidden" name="book_id" value="{{ $book->id }}">
-                    @endif
-                    <button type="submit" class="btn btn--primary">Add review</button>
                 </form>
+                @else
+                <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Add review</a>
+                @endif
                 <form class="wishlist-form" method="POST" action="{{ route('wishlist.store') }}">
                     @if($book->id == "")
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
