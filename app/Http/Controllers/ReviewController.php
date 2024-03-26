@@ -55,7 +55,8 @@ class ReviewController extends Controller
         return view('pages.createReviewSearch', [
             'books' => $wishlist,
             'type' => 'fromWishlist',
-            'isBookReviewedByUser' => false
+            'isBookReviewedByUser' => false,
+            'refreshByUpdatingWishlist' => "true"
         ]);
     }
 

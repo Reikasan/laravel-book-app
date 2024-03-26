@@ -10,7 +10,7 @@
             <div class="book-card__container">
                 <!-- Books data from Wishlist -->
                 @foreach($books as $item)
-                    <x-book-card :book="$item->book" :type="$type"  :isBookReviewedByUser="$isBookReviewedByUser"/>
+                    <x-book-card :book="$item->book" :$type :$isBookReviewedByUser :$refreshByUpdatingWishlist />
                 @endforeach
             </div>
         </div>
