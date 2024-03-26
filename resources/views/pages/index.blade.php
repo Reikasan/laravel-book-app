@@ -33,16 +33,17 @@
             <div class="single-row-grid row">
                 @if(count($wishlist) == 0)
                     <h2 class="no-item">No wishlists</h2>
-                    <a class="btn btn-primary" href="{{ route('wishlist.index')}}">All Wishlists</a>
                 @else
                     @foreach ($wishlist as $item)
-                        <x-book-card :book="$item->book" :isBookReviewedByUser=false />
+                        <x-book-card :book="$item->book" :isBookReviewedByUser=false :$refreshByUpdatingWishlist />
                     @endforeach
                 @endif
             </div>
+            @if(count($wishlist) !== 0)
             <div class="btn-container show-more">
                 <a href="{{ route('wishlist.index') }}" class="btn btn-primary show-more-btn">All Wishlists</a>
             </div>
+            @endif
         </section>
     </div>
 </x-app>

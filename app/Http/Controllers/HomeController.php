@@ -25,6 +25,7 @@ class HomeController extends Controller
         return view('pages.index', [
             'latestReviews' => $latestReviews,
             'wishlist' => $wishlist,
+            'refreshByUpdatingWishlist' => "true",
         ]);
     }
 }

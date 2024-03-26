@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Services\BookService;
@@ -34,7 +35,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
         
     }
@@ -44,7 +45,6 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $book = Book::findOrFail($book->id);
         return view('pages.book', ['book' => $book]);
     }
 
@@ -80,9 +80,10 @@ class BookController extends Controller
 
         $bookTitle = $validated['book-title'];
         $books = $this->bookService->fetchBook('title', $bookTitle);
-
+     
         return view('pages.books', [
             'books' => $books,
+            'refreshByUpdatingWishlist' => "false"
         ]);
     }
     

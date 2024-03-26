@@ -11,14 +11,16 @@ class bookCard extends Component
 {
     private $book;
     private $bookService;
+    private $refreshByUpdatingWishlist;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($book, BookService $bookService)
+    public function __construct(object $book, BookService $bookService, bool $refreshByUpdatingWishlist)
     {
         $this->book = $book;
         $this->bookService = $bookService;
+        $this->refreshByUpdatingWishlist;
     }
 
     /**
@@ -29,6 +31,7 @@ class bookCard extends Component
         return view('components.book-card', [
             'book' => $this->book,
             'isBookReviewedByUser' => $this->bookService->isBookReviewedByUser($this->book->id),
+            'refreshByUpdatingWishlist' => $this->refreshByUpdatingWishlist,
         ]);
     }
 }

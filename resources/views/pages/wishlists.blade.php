@@ -4,7 +4,11 @@
         @csrf
         @if(isset($wishlists))
             @foreach($wishlists as $wishlist) 
-                <x-book-card :book="$wishlist->book" :isBookReviewedByUser=false/>
+                <x-book-card 
+                    :book="$wishlist->book" 
+                    :isBookReviewedByUser=false 
+                    :$refreshByUpdatingWishlist 
+                />
             @endforeach
         @endif
     </div>
