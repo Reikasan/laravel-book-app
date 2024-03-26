@@ -1,5 +1,4 @@
 <div class="book-card">
-    @csrf
     <div class="book-card__img">
         <img src="{{ $book->image_thumbnail }}" alt="{{ $book->title }}"/>
     </div>
@@ -60,12 +59,14 @@
     </div>
     @else
     <div class="book-card__btn-container">
-        <form class="" method="POST" action={{ route('books.showFetchedBook', ['title' => $book->title])}}>
+        <form class="book-card__form--show" method="POST" action={{ route('books.showFetchedBook', ['title' => $book->title])}}>
+            @csrf
             <input type="hidden" name="isbn" value="{{ $book->isbn }}">
             <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
             <button type="submit" class="btn btn--secondary show-details-btn">Book Details</button>
         </form>
-        <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
+        <form class="book-card__form--create-review" method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
+            @csrf
             <input type="hidden" name="isbn" value="{{ $book->isbn }}">
             <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
             @if(!$isBookReviewedByUser)

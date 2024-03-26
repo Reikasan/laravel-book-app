@@ -26,7 +26,8 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = $this->wishlistService->getAll();
-        return view('pages.wishlists', compact('wishlists'));
+        $refreshByUpdatingWishlist = "true";
+        return view('pages.wishlists', compact('wishlists', 'refreshByUpdatingWishlist'));
     }
 
     public function store(Request $request)
