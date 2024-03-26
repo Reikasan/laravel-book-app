@@ -2,6 +2,10 @@
 This is a same content as the [Book App](https://github.com/Reikasan/book-app/). <br/>
 It is still under construction, and I have recreated it using only Laravel.
 
+> [!TIP]
+> You can find more details about this Application!<br/>
+> 👉 [Book App Wiki](https://github.com/Reikasan/laravel-book-app/wiki)
+
 <img width="1228" alt="Screenshot 2024-02-15 at 11 23 07" src="https://github.com/Reikasan/laravel-book-app/assets/68085523/c8a9d4b6-9459-449a-9af1-7af1705cf80b">
 
 > [!NOTE]
