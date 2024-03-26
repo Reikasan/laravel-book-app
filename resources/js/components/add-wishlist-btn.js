@@ -24,7 +24,6 @@ function manipulateWishlistItems(e) {
         if(!isBookInDB(bookId) && item === 'btn') {
             return;
         } 
-
         addToWishlist(e, item);
     } else {
         removeFromWishlist(e, item);
@@ -68,6 +67,8 @@ function addToWishlist(e, item) {
 function removeFromWishlist(e, item) {
     e.preventDefault();
     const wishlistId = e.target.dataset['wishlistId'];
+    const bookId = e.target.dataset['bookId'];
+    const refresh = e.target.dataset['refresh'];
     fetch(`/wishlist/${wishlistId}`, {
         method: 'DELETE',
         headers: {
@@ -78,12 +79,25 @@ function removeFromWishlist(e, item) {
         if(!response.ok) {
             throw new Error('Network response was not ok');
         }
-        changeSign(e.target, item);
+        if(refresh === "true") {
+            fadeout(e.target.closest('.book-card'));
+            setInterval(refreshPage, 800);
+        }
+        changeSign(e.target, item, bookId);
     })
     .catch(error => {
         alert('Error: ' + error.message);
     });
 
+}
+
+function fadeout(element) {
+    element.style.transition = 'opacity .5s';
+    element.style.opacity = 0;
+}
+
+function refreshPage() {
+    location.reload();
 }
 
 function createFormData(e, item) {
@@ -148,5 +162,6 @@ function changeWishlistIcon(element, id) {
         element.classList.add('wishlist-icon--add');
         element.classList.add('fa-regular');
         element.removeAttribute('data-wishlist-id');
+        element.setAttribute('data-book-id', id);
     }
 }
