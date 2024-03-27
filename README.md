@@ -30,7 +30,8 @@ It is still under construction, and I have recreated it using only Laravel.
 - [x] Show Fetched book data
 - [x] Show Review data on Index page
 - [x] Separate reviews by month and year
-- [x] Add/Remove Wishlist function 🆕
+- [x] Add/Remove Wishlist function
+- [x] index/show/store Review function 🆕 
 
 # Pages
 ## Search from Google Book API 
