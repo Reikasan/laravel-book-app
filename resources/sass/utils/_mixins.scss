@@ -17,3 +17,8 @@
     border: solid 1px $primaryColor;
     color: $primaryColor;
 }
+
+/* Rating Icon */
+@mixin ratingIcon {
+    font-size: 4rem;
+}

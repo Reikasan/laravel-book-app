@@ -1,16 +1,21 @@
 <x-app>
-    <div class="create-review">
-        <div class="create-review__form">
+    <div class="review">
+        <div class="review__form">
             <form method="POST" action="{{ route('reviews.store') }}">
                 @csrf
                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                 <div class="book-details">
                     <div class="book-details__img">
-                        <img 
-                            src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
-                            alt="{{ $book->title }}"/>
+                        <a href="{{ route('books.show', $book->id) }}" class="book-image-link">
+                            <img 
+                                src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
+                                alt="{{ $book->title }}"/>
+                                <div class="overlay">
+                                    <p>Details</p>
+                                </div>
+                        </a>
                     </div>
-                    <div class="create-review__book-infos">
+                    <div class="book-details__content">
                         <h1>{{ $book->title }}</h1>
                         <p class="author">by {{ $book->authors }}</p>
                         <div class="form-group w-harf">
