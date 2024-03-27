@@ -32,4 +32,9 @@ class WishlistService
     {
         return $this->wishlistRepository->isOwnedByUser($wishlistId);
     }
+
+    public function destroyByBookId(int $bookId): int
+    {
+        return $this->wishlistRepository->destroyByBookId($bookId);
+    }
 }

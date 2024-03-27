@@ -28,4 +28,12 @@ class WishlistRepository
                         ->where('user_id', auth()->id())
                         ->exists();
     }
+
+    public function destroyByBookId(int $bookId): int
+    {
+        return Wishlist::where([
+                            'book_id' => $bookId,
+                            'user_id' => auth()->id()
+                        ])->delete();
+    }
 }

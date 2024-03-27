@@ -27,4 +27,9 @@ class ReviewService
     {
         return $this->reviewRepository->getReadMonth();
     }
+
+    public function store(array $inputs): object | null
+    {
+        return $this->reviewRepository->store($inputs);
+    }
 }

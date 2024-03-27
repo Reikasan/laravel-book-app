@@ -73,7 +73,23 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'review-rate' => 'required|numeric|between:1,5',
+            'review-date' => 'required|date',
+            'review-text' => 'required|string'
+        ]);
+        try {
+            $review = $this->reviewService->store($inputs);
+
+            // Remove the book from the wishlist if it exists
+            $result = $this->wishlistService->destroyByBookId($inputs['book_id']);
+            // Redirect to the review page
+            return redirect()->route('reviews.show', ['review' => $review->id]);
+        } 
+        catch (\Exception $e) {
+            return back()->withInput()->withErrors(['error' => 'An error occurred while saving the review.']);
+        }
     }
 
     /**

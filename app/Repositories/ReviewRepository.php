@@ -30,11 +30,9 @@ class ReviewRepository
         $groupedReviews = $reviews->groupBy(function($review) {
             return Carbon::parse($review->review_date)->format('F.Y');
         });
-
         return $groupedReviews;
     }
 
-    
     public function getReadMonth(): array
     {
         $reviews = $this->allUserReviews();
@@ -64,5 +62,16 @@ class ReviewRepository
             }
         }
         return $readMonthPair;
+    }
+
+    public function store(array $inputs): object | null
+    {
+        return Review::create([
+            'user_id' => auth()->id(),
+            'book_id' => $inputs['book_id'],
+            'rating' => $inputs['review-rate'],
+            'review_date' => $inputs['review-date'],
+            'review' => $inputs['review-text']
+        ]);
     }
 }
