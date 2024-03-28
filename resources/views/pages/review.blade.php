@@ -28,15 +28,12 @@
             </ul>
         </div>
         <div class="book-details">
-            <div class="book-details__img">
+            <div class="book-details__img img-with-link">
                     <img 
                         src="{{ isset($review->book->image_large) ? $review->book->image_large : $review->book->image_thumbnail }}" 
-                        alt="{{ $review->book->title }}"/>
-                    <div class="img-overlay">
-                        <a href="{{ route('books.show', $review->book->id) }}" class="btn">
-                            Details
-                        </a>
-                    </div>
+                        alt="{{ $review->book->title }}"
+                    />
+                    <x-image-overlay :book="$review->book"/>
                 </a>
             </div> 
             <div class="book-details__content">

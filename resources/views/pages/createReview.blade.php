@@ -5,15 +5,12 @@
                 @csrf
                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                 <div class="book-details">
-                    <div class="book-details__img">
-                        <a href="{{ route('books.show', $book->id) }}" class="book-image-link">
-                            <img 
-                                src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
-                                alt="{{ $book->title }}"/>
-                                <div class="overlay">
-                                    <p>Details</p>
-                                </div>
-                        </a>
+                    <div class="book-details__img img-with-link">
+                        <img 
+                            src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
+                            alt="{{ $book->title }}"
+                        />
+                            <x-image-overlay :$book/>
                     </div>
                     <div class="book-details__content">
                         <h1>{{ $book->title }}</h1>
