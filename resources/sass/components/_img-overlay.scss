@@ -1,0 +1,38 @@
+.img-with-link {
+    cursor: pointer;
+    position: relative;
+
+    &:hover  {
+        img {
+            filter: blur(2px) grayscale(80%);
+        }
+        .img-overlay {
+            opacity: 1;
+        }
+    }
+
+    .img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 500;
+    
+        .btn {
+            background-color: rgba($primaryColor, .8);
+            width: 60%;
+            font-weight: 700;
+
+            &:hover {
+                background-color: $primaryColor;
+                color: $white;
+            }
+        }
+    }
+}
