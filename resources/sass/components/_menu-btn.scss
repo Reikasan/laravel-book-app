@@ -1,0 +1,48 @@
+.menu-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    width: 30px;
+    height: 30px;
+    z-index: 1000;
+    
+    i {
+        font-size: 30px;
+    }
+
+    .menu {
+        position: absolute;
+        top: 30px;
+        right: -1rem;
+        background-color: $white;
+        border: solid 1px $borderColor;
+        border-radius: 5px;
+        padding: 2rem;
+        box-shadow: 2px 2px 5px $borderColor;
+        width: 160px;
+
+        &.hidden {
+            display: none;
+        }
+
+        li.menu__item {
+            margin-bottom: 1rem;
+            cursor: pointer;
+
+            a {
+                color: $darkgray;
+            }
+
+            i {
+                color: $darkgray;
+                margin-right: 1rem;
+            }
+
+            div {
+                font-size: 1.4rem;
+                font-weight: 700;
+            }
+        }
+    }
+}
