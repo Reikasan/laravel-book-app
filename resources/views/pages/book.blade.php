@@ -6,13 +6,21 @@
                 <img 
                     src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
                     alt="{{ $book->title }}"/>
+                <!-- If the book is not in the database, the user can add it to the database and review it -->
                 @if($book->id == "")
                 <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
                 </form>
                 @else
-                <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Add review</a>
+                    @inject('bookService', 'App\Services\BookService')
+                    @if($bookService->isBookReviewedByUser($book->id))
+                    <!-- If the book is reviewed by the user, the user can go to the review -->
+                    <a href="{{ route('reviews.show', ['review' => $bookService->getUserReview($book)->id]) }}" class="btn btn--primary">Go to your review</a>
+                    @else
+                    <!-- If the book is in the database, and not reviewed by user yet,the user can review it -->
+                    <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Add review</a>
+                    @endif
                 @endif
                 <form class="wishlist-form" method="POST" action="{{ route('wishlist.store') }}">
                     @if($book->id == "")
