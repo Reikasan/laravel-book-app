@@ -10,14 +10,16 @@
         }
     }
 
-    .book-details {
+    .grid {
         display: grid;
         grid-template-columns: 1fr 2fr;
         gap: 5rem;
+    }
 
+    .book-details {
         &__img {
-            height: 92%;
-            width: 78%;
+            height: 100%;
+            width: 100%;
             display: block;
 
             img {
@@ -57,9 +59,11 @@
     }
 
     &__content {
+        display: grid;
+        grid-template-columns: .5fr 1fr;
         margin: 2rem 0;
          p {
-            padding: 2rem 0;
+            padding: 1rem 0 2rem;
             min-height: 200px;
          }
     }

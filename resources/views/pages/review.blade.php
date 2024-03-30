@@ -56,12 +56,11 @@
             </div>
         </div>
         <div class="review__content">
-            <h2>Review</h2>
-            <p>{{ $review->review }}</p>
+            <div></div>
+            <div>
+                <h2>Review</h2>
+                <p>{{ $review->review }}</p>
+            </div>
         </div>
-        {{-- <div class="btn-container">
-            <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn--primary">Edit review</a>
-            <a href="{{route('reviews.index')}}" class="btn btn--secondary">Check more reviews</a>
-        </div> --}}
     </div>
 </x-app>

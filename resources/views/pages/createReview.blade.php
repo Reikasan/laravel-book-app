@@ -1,16 +1,16 @@
 <x-app>
     <div class="review">
         <div class="review__form">
-            <form method="POST" action="{{ route('reviews.store') }}">
+            <form method="POST">
                 @csrf
                 <input type="hidden" name="book_id" value="{{ $book->id }}">
-                <div class="book-details">
+                <div class="book-details grid">
                     <div class="book-details__img img-with-link">
                         <img 
                             src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
                             alt="{{ $book->title }}"
                         />
-                            <x-image-overlay :$book/>
+                        <x-image-overlay :$book/>
                     </div>
                     <div class="book-details__content">
                         <h1>{{ $book->title }}</h1>
@@ -29,13 +29,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="review-text">Review</label>
-                    <textarea name="review-text" id="reviewText" class="form-control" required></textarea>
+                <div class="grid">
+                    <div></div>
+                    <div class="form-group">
+                        <label for="review-text">Review</label>
+                        <textarea name="review-text" id="reviewText" class="form-control" required></textarea>
+                    </div>
                 </div>
                 <div class="btn-container">
-                    <button type="submit" class="btn btn--primary">Add review</button>
-
+                    <button type="submit" class="btn btn--secondary" formaction="{{route('reviews.storeDraft')}}">Save as draft</button>
+                    <button type="submit" class="btn btn--primary" formaction="{{route('reviews.store')}}"">Add review</button>
                 </div>
             </form>
         </div>
