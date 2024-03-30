@@ -17,6 +17,19 @@
                 <a href="{{ route('reviews.index') }}" class="btn btn-primary show-more-btn">All Reviews</a>
             </div>
         </section>
+        @if(count($drafts) !== 0)
+        <section class="review-draft book-card-container">
+            <h1>Edit Draft</h1>
+            <div class="single-row-grid row">
+                @foreach ($drafts as $draft)
+                    <x-review-card :review="$draft" />
+                @endforeach
+            </div>
+            <div class="btn-container hidden">
+                <a href="{{ route('reviews.index') }}" class="btn btn-primary show-more-btn">All Reviews</a>
+            </div>
+        </section>
+        @endif
         <section class="actions">
             <a href="{{ route('reviews.create') }}" class="action-btn action-btn--create">
                 <span>Create<br/>Review</span>
@@ -40,7 +53,7 @@
                 @endif
             </div>
             @if(count($wishlist) !== 0)
-            <div class="btn-container show-more">
+            <div class="btn-container hidden">
                 <a href="{{ route('wishlist.index') }}" class="btn btn-primary show-more-btn">All Wishlists</a>
             </div>
             @endif

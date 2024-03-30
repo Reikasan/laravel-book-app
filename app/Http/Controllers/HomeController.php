@@ -19,11 +19,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        $userId = auth()->user()->id;
-        $latestReviews = $this->reviewService->getLatestReviews($userId);
+        $latestReviews = $this->reviewService->getLatestReviews();
+        $drafts = $this->reviewService->getReviewDrafts();
         $wishlist = $this->wishlistService->getAll();
         return view('pages.index', [
             'latestReviews' => $latestReviews,
+            'drafts' => $drafts,
             'wishlist' => $wishlist,
             'refreshByUpdatingWishlist' => "true",
         ]);

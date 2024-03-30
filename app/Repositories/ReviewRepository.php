@@ -7,13 +7,24 @@ use Carbon\Carbon;
 
 class ReviewRepository
 {
-    public function getLatestReviews(int $userId): object
+    public function getLatestReviews(): object
     {
-        $reviews = Review::where(['user_id' => $userId])
+        $reviews = Review::where([
+                            'user_id' => auth()->user()->id,
+                            'is_draft' => false
+                        ])
                         ->whereBetween('review_date', [now()->subDays(60), now()])
                         ->orderBy('review_date', 'desc')
                         ->get();
         return $reviews;
+    }
+
+    public function getReviewDrafts(): object
+    {
+        $drafts = Review::where(['user_id' => auth()->user()->id, 'is_draft' => true])
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        return $drafts;
     }
 
     private function allUserReviews(): object
@@ -71,7 +82,8 @@ class ReviewRepository
             'book_id' => $inputs['book_id'],
             'rating' => $inputs['review-rate'],
             'review_date' => $inputs['review-date'],
-            'review' => $inputs['review-text']
+            'review' => $inputs['review-text'],
+            'is_draft' => $inputs['is_draft']
         ]);
     }
 }

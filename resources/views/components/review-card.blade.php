@@ -24,6 +24,10 @@
         </div>
     </div>
     <div class="book-card__btn-container">
+        @if($review->is_draft)
+        <a class="btn btn--secondary" href="{{route('reviews.edit', ['review' => $review])}}">Edit Draft</a>
+        @else
         <a class="btn btn--primary" href="{{route('reviews.show', ['review' => $review])}}">Read Review</a>
+        @endif
     </div>
 </div>  
