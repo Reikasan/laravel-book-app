@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('books/{title}', [BookController::class, 'showFetchedBook'])->name('books.showFetchedBook');
 
     Route::resource('reviews', ReviewController::class);
+    Route::post('reviews/draft', [ReviewController::class, 'storeDraft'])->name('reviews.storeDraft');
     Route::get('reviews/all/{year}', [ReviewController::class, 'indexByYear'])->name('reviews.indexByYear');
     Route::get('reviews/create/{book}', [ReviewController::class, 'createBookReview'])->name('reviews.createBookReview');
     Route::post('reviews/{title}', [ReviewController::class, 'createFromApi'])->name('reviews.createFromApi');

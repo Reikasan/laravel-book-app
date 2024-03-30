@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReviewRequest;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Services\BookService;
@@ -71,14 +72,29 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreReviewRequest $request)
     {
-        $inputs = $request->validate([
-            'book_id' => 'required|exists:books,id',
-            'review-rate' => 'required|numeric|between:1,5',
-            'review-date' => 'required|date',
-            'review-text' => 'required|string'
-        ]);
+        $inputs = $request->validated();
+        try {
+            $review = $this->reviewService->store($inputs);
+
+            // Remove the book from the wishlist if it exists
+            $result = $this->wishlistService->destroyByBookId($inputs['book_id']);
+            // Redirect to the review page
+            return redirect()->route('reviews.show', ['review' => $review->id]);
+        } 
+        catch (\Exception $e) {
+            return back()->withInput()->withErrors(['error' => 'An error occurred while saving the review.']);
+        }
+    }
+    
+    /**
+     * Store a draft review.
+     */
+    public function storeDraft(StoreReviewRequest $request)
+    {
+        $inputs = $request->validated();
+        $inputs['is_draft'] = true;
         try {
             $review = $this->reviewService->store($inputs);
 

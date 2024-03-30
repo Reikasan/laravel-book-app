@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->date('review_date');
             $table->text('review');
+            $table->boolean('is_draft')->default(false);
             $table->timestamps();
         });
     }
