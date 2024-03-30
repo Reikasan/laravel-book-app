@@ -5,7 +5,6 @@
             alt="{{ $review->book->title }}"
         />    
         <x-image-overlay :book="$review->book" />
-        
     </div>
     <div class="book-card__content">
         <div class="feedback-panel">
@@ -25,6 +24,6 @@
         </div>
     </div>
     <div class="book-card__btn-container">
-        <a class="btn btn--secondary" href="{{route('reviews.show', ['review' => $review])}}">Read Review</a>
+        <a class="btn btn--primary" href="{{route('reviews.show', ['review' => $review])}}">Read Review</a>
     </div>
 </div>  

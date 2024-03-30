@@ -23,10 +23,16 @@
         opacity: 0;
         transition: opacity 0.3s;
         z-index: 500;
+
+        form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
     
         .btn {
             background-color: rgba($primaryColor, .8);
-            width: 60%;
+            width: 40%;
             font-weight: 700;
 
             &:hover {
