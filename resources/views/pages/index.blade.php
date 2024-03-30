@@ -14,7 +14,7 @@
                 @endif
             </div>
             <div class="btn-container hidden">
-                <a href="{{ route('wishlist.index') }}" class="btn btn-primary show-more-btn">All Wishlists</a>
+                <a href="{{ route('reviews.index') }}" class="btn btn-primary show-more-btn">All Reviews</a>
             </div>
         </section>
         <section class="actions">

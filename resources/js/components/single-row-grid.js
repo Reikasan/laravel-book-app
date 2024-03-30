@@ -1,5 +1,5 @@
 const singleRowGrids = document.querySelectorAll('.single-row-grid');
-const singleRowMaxHeight = 550;
+const singleRowMaxHeight = 460;
 
 window.addEventListener('load', changeBtnVisibility);
 
