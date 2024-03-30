@@ -90,8 +90,8 @@ class BookController extends Controller
     public function showFetchedBook(Request $request)
     {
         $validated = $request->validate([
-            'isbn' => 'string|max:100',
-            'isbn13' => 'string|max:100'
+            'isbn' => 'string|max:100|nullable',
+            'isbn13' => 'string|max:100|nullable'
         ]);
 
         $isbn = $validated['isbn'] != null ? $validated['isbn'] : $validated['isbn13']; 
