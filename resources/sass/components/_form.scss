@@ -11,6 +11,12 @@
         flex-direction: row;
         align-items: center;
     }
+    .error-message {
+        color: red;
+        font-size: 1.4rem;
+        margin-top: .5rem;
+        visibility: hidden;
+    }
     
     label {
         display: inline-block;
@@ -29,7 +35,7 @@
     input.form-control {
         width: 100%;
         height: 4rem;
-        margin: 1rem 0;
+        margin: 1rem 0 0;
         padding: 0 1rem;
         border: none;
         border-bottom: 1px solid $borderColor;
@@ -39,14 +45,45 @@
             outline: none;
             border-color: $blue;
         }
+
+        input:invalid {
+            border-color: red;
+            border-width: 2px;
+        }
+        
     }
 
     textarea {
+        width: 100%;
+        height: 20rem;
+        padding: 2rem;
+        border: none;
+        border: solid 1px $borderColor;
         border-radius: 3px;
+        font-size: 1.6rem;
 
         &:focus {
             outline: none;
             border-color: $blue;
+        }
+
+        &:invalid {
+            border: solid 2px red;
+        }
+    }
+
+    &.is-invalid {
+        label {
+            color: red !important;
+        }
+
+        input, textarea {
+            border-color: red !important;
+            border-width: 2px !important;
+        }
+
+        .error-message {
+            visibility: visible;
         }
     }
 }

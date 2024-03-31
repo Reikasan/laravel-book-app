@@ -1,9 +1,9 @@
 <x-app>
     <div class="review">
         <div class="review__form">
-            <form method="POST">
+            <form>
                 @csrf
-                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                <input type="hidden" name="book_id" value="{{ $book->id }}" required>
                 <div class="book-details grid">
                     <div class="book-details__img img-with-link">
                         <img 
@@ -20,12 +20,14 @@
                                 @for($i = 0; $i < 5; $i++)
                                 <i class="icon fa-regular fa-star"></i>
                                 @endfor
-                                <input type="number" name="review-rate" value=0 hidden>
+                                <input type="hidden" name="review-rate" min="1" max="5" step="1">
+                                <p class="error-message">Please enter a number between 1 and 5</p>
                             </div>
                         </div>
                         <div class="form-group w-half">
                             <label for="date">Date</label>
-                            <input type="date" name="review-date" id="date" class="form-control" required>
+                            <input type="date" name="review-date" id="date" class="form-control">
+                            <p class="error-message">Please enter a valid date</p>
                         </div>
                     </div>
                 </div>
@@ -33,12 +35,13 @@
                     <div></div>
                     <div class="form-group">
                         <label for="review-text">Review</label>
-                        <textarea name="review-text" id="reviewText" class="form-control" required></textarea>
+                        <textarea name="review-text" id="reviewText" class="form-control" maxlength="5000"></textarea>
+                        <p class="error-message">Please enter a review</p>
                     </div>
                 </div>
                 <div class="btn-container">
-                    <button type="submit" class="btn btn--secondary" formaction="{{route('reviews.storeDraft')}}">Save as draft</button>
-                    <button type="submit" class="btn btn--primary" formaction="{{route('reviews.store')}}"">Add review</button>
+                    <button type="submit" class="btn btn--secondary store-btn store-btn--draft">Save as draft</button>
+                    <button type="submit" class="btn btn--primary store-btn store-btn--review">Add review</button>
                 </div>
             </form>
         </div>
