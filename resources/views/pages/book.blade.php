@@ -15,8 +15,13 @@
                 @else
                     @inject('bookService', 'App\Services\BookService')
                     @if($bookService->isBookReviewedByUser($book->id))
-                    <!-- If the book is reviewed by the user, the user can go to the review -->
-                    <a href="{{ route('reviews.show', ['review' => $bookService->getUserReview($book)->id]) }}" class="btn btn--primary">Go to your review</a>
+                        @if($bookService->getUserReview($book)->is_draft == 1)
+                        <!-- If the book is reviewed by the user and saved as draft, the user can go to the edit -->
+                        <a href="{{ route('reviews.edit', ['review' => $bookService->getUserReview($book)->id]) }}" class="btn btn--secondary">Edit draft</a>
+                        @else
+                        <!-- If the book is reviewed by the user, the user can go to the review -->
+                        <a href="{{ route('reviews.show', ['review' => $bookService->getUserReview($book)->id]) }}" class="btn btn--primary">Go to your review</a>
+                        @endif
                     @else
                     <!-- If the book is in the database, and not reviewed by user yet,the user can review it -->
                     <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Add review</a>
