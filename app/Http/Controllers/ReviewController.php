@@ -75,33 +75,16 @@ class ReviewController extends Controller
     public function store(StoreReviewRequest $request)
     {
         $inputs = $request->validated();
-        try {
-            $review = $this->reviewService->store($inputs);
-
-            // Remove the book from the wishlist if it exists
-            $result = $this->wishlistService->destroyByBookId($inputs['book_id']);
-            // Redirect to the review page
-            return redirect()->route('reviews.show', ['review' => $review->id]);
-        } 
-        catch (\Exception $e) {
-            return back()->withInput()->withErrors(['error' => 'An error occurred while saving the review.']);
+        if($this->reviewService->validateReview($inputs) === false) {
+            return back()->withInput()->withErrors(['error' => 'The review is invalid.']);
         }
-    }
-    
-    /**
-     * Store a draft review.
-     */
-    public function storeDraft(StoreReviewRequest $request)
-    {
-        $inputs = $request->validated();
-        $inputs['is_draft'] = true;
+       
         try {
             $review = $this->reviewService->store($inputs);
 
             // Remove the book from the wishlist if it exists
             $result = $this->wishlistService->destroyByBookId($inputs['book_id']);
-            // Redirect to the review page
-            return redirect()->route('reviews.show', ['review' => $review->id]);
+            return response()->json(['reviewId' => $review->id], 200);
         } 
         catch (\Exception $e) {
             return back()->withInput()->withErrors(['error' => 'An error occurred while saving the review.']);

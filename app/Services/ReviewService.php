@@ -37,4 +37,9 @@ class ReviewService
     {
         return $this->reviewRepository->store($inputs);
     }
+
+    public function validateReview(array $inputs): bool
+    {
+        return $this->reviewRepository->validateReview($inputs);
+    }
 }

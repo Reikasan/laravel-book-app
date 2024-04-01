@@ -75,7 +75,7 @@ class ReviewRepository
         return $readMonthPair;
     }
 
-    public function store(array $inputs): object | null
+    public function store(array $inputs): object
     {
         return Review::create([
             'user_id' => auth()->id(),
@@ -85,5 +85,15 @@ class ReviewRepository
             'review' => $inputs['review-text'],
             'is_draft' => $inputs['is_draft']
         ]);
+    }
+
+    public function validateReview(array $inputs): bool
+    {
+        if($inputs['is_draft'] == 0) {
+            if($inputs['review-rate'] == null || $inputs['review-date'] == null || $inputs['review-text'] == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }
