@@ -29,7 +29,10 @@ class ReviewRepository
 
     private function allUserReviews(): object
     {
-        $reviews = Review::where(['user_id' => auth()->id()])
+        $reviews = Review::where([
+                            'user_id' => auth()->id(),
+                            'is_draft' => false
+                        ])
                         ->orderBy('review_date', 'desc')
                         ->get();
         return $reviews;
@@ -47,6 +50,7 @@ class ReviewRepository
     public function getReadMonth(): array
     {
         $reviews = $this->allUserReviews();
+        // dd($reviews);
         $year = [];
         $readMonthPair = [];
         $oldestDate = Carbon::parse($reviews->sortBy('review_date')->first()->review_date);
