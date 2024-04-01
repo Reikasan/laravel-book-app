@@ -1,7 +1,7 @@
 <x-app>
     <div class="review">
         <div class="review__form">
-            <form>
+            <form method="POST">
                 @csrf
                 <input type="hidden" name="book_id" value="{{ $book->id }}" required>
                 <div class="book-details grid">
@@ -20,7 +20,7 @@
                                 @for($i = 0; $i < 5; $i++)
                                 <i class="icon fa-regular fa-star"></i>
                                 @endfor
-                                <input type="hidden" name="review-rate" min="1" max="5" step="1">
+                                <input type="hidden" name="review-rate" min="1" max="5" value=0 step="1">
                                 <p class="error-message">Please enter a number between 1 and 5</p>
                             </div>
                         </div>

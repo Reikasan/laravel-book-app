@@ -3,6 +3,7 @@ const bookId = document.querySelector('input[name=book_id]');
 const reviewRate = document.querySelector('input[name=review-rate]');
 const reviewDate = document.querySelector('input[name=review-date]');
 const reviewText = document.querySelector('textarea[name=review-text]');
+const csrfToken = document.querySelector('input[name="_token"]');
 
 storeBtns.forEach((storeBtn) => {
     storeBtn.addEventListener('click', (e) => storeReview(e));
@@ -10,7 +11,42 @@ storeBtns.forEach((storeBtn) => {
 
 function storeReview(e) {
     e.preventDefault();
-    validateForm(e);
+    if(!validateForm(e)) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('book_id', bookId.value);
+    formData.append('review-rate', reviewRate.value);
+    formData.append('review-date', reviewDate.value);
+    formData.append('review-text', reviewText.value);
+
+    if(e.target.classList.contains('store-btn--draft')) {
+        formData.append('is_draft', 1);
+    } else {
+        formData.append('is_draft', 0);
+    }
+    
+    fetch('/reviews', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken.value
+        },
+        body: formData
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+       const reviewId = data.reviewId; 
+       window.location.replace(`/reviews/${reviewId}`);
+    })
+    .catch(error => {
+        alert('Error: ' + error.message);
+    });
 }
 
 function validateForm(e) {
@@ -19,27 +55,27 @@ function validateForm(e) {
         return;
     }
     
+    let isValid = new Array();
     // Validation for draft
     if(e.target.classList.contains('store-btn--draft')) {
-        if(reviewRate.value !== '') {
-            validateRate();
+        if(reviewRate.value != 0) {
+            isValid.push(validateRate());
         } 
-
         if(reviewDate.value !== '') {
-            validateDate();
+            isValid.push(validateDate());
         }
-
         if(reviewText.value !== '') {
-            validateReviewText();
+            isValid.push(validateReviewText());
         }
     }
 
     // Validation for store
     if(e.target.classList.contains('store-btn--review')) {
-        validateRate();
-        validateDate();
-        validateReviewText();
+        isValid.push(validateRate());
+        isValid.push(validateDate());
+        isValid.push(validateReviewText());
     }
+    return isValid.includes(false) ? false : true;
 }
 
 function validateRate() {
@@ -50,6 +86,7 @@ function validateRate() {
         reviewRate.setCustomValidity('');
     }
     toggleInvalidClass(reviewRate, reviewRate.validity.valid);
+    return reviewRate.validity.valid ? true : false;
 }
 
 function validateDate() {
@@ -66,6 +103,7 @@ function validateDate() {
     toggleInvalidClass(reviewDate, errorMessage === '');
     reviewDate.setCustomValidity(errorMessage);
     reviewDate.nextElementSibling.innerText = errorMessage;
+    return errorMessage === '' ? true : false; 
 }
 
 function validateReviewText() {
@@ -80,21 +118,15 @@ function validateReviewText() {
     toggleInvalidClass(reviewText, errorMessage === '');
     reviewText.setCustomValidity(errorMessage);
     reviewText.nextElementSibling.innerText = errorMessage;
+    return errorMessage === '' ? true : false;
 }
 
 function toggleInvalidClass(input, isValid) {
-    if(isValid) {
-        removeInvalidClass(input);
-    } else {
-        addInvalidClass(input);
-    }
-}
+    const formGroupElement = input.closest('.form-group');
 
-function removeInvalidClass(input) {
-    const formGroupElement = input.closest('.form-group');
-    formGroupElement.classList.remove('is-invalid');
-}
-function addInvalidClass(input) {
-    const formGroupElement = input.closest('.form-group');
-    formGroupElement.classList.add('is-invalid');
+    if(isValid) {
+        formGroupElement.classList.remove('is-invalid');
+    } else {
+        formGroupElement.classList.add('is-invalid');
+    }
 }
