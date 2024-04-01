@@ -2,6 +2,7 @@
     <div class="book">
         <div class="book-details">
             @csrf
+            @inject('bookService', 'App\Services\BookService')
             <div class="book-details__img">
                 <img 
                     src="{{ isset($book->image_large) ? $book->image_large : $book->image_thumbnail }}" 
@@ -11,9 +12,9 @@
                 <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
+                    <button type="submit" class="btn btn--primary">Create review</button>
                 </form>
                 @else
-                    @inject('bookService', 'App\Services\BookService')
                     @if($bookService->isBookReviewedByUser($book->id))
                         @if($bookService->getUserReview($book)->is_draft == 1)
                         <!-- If the book is reviewed by the user and saved as draft, the user can go to the edit -->
@@ -24,9 +25,10 @@
                         @endif
                     @else
                     <!-- If the book is in the database, and not reviewed by user yet,the user can review it -->
-                    <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Add review</a>
+                    <a href="{{ route('reviews.createBookReview', ['book' => $book->id]) }}" class="btn btn--primary">Create review</a>
                     @endif
                 @endif
+                @if($book->id == null || !$bookService->isBookReviewedByUser($book->id))
                 <form class="wishlist-form" method="POST" action="{{ route('wishlist.store') }}">
                     @if($book->id == "")
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
@@ -41,6 +43,7 @@
                     <button type="submit" class="btn btn--primary wishlist-btn wishlist-btn--add">Add to Wishlist</button>
                     @endif
                 </form>
+                @endif
             </div>
             <div class="book-details__content">
                 <h1>{{ $book->title }}</h1>
