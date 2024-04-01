@@ -15,9 +15,10 @@ function storeReview(e) {
         return;
     }
 
+    const reviewRateValue = reviewRate.value == 0 ? '' : reviewRate.value;
     const formData = new FormData();
     formData.append('book_id', bookId.value);
-    formData.append('review-rate', reviewRate.value);
+    formData.append('review-rate', reviewRateValue);
     formData.append('review-date', reviewDate.value);
     formData.append('review-text', reviewText.value);
 
@@ -26,7 +27,7 @@ function storeReview(e) {
     } else {
         formData.append('is_draft', 0);
     }
-    
+
     fetch('/reviews', {
         method: 'POST',
         headers: {
