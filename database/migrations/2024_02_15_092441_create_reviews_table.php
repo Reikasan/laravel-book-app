@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained()
                                         ->onDelete('cascade')
                                         ->onUpdate('cascade');
-            $table->integer('rating');
-            $table->date('review_date');
-            $table->text('review');
+            $table->integer('rating')->nullable();
+            $table->date('review_date')->nullable();
+            $table->text('review')->nullable();
             $table->boolean('is_draft')->default(false);
             $table->timestamps();
         });

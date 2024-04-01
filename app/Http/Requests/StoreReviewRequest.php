@@ -23,9 +23,10 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'book_id' => 'required|exists:books,id',
-            'review-rate' => 'required|numeric|between:1,5',
-            'review-date' => 'required|date',
-            'review-text' => 'required|string' 
+            'review-rate' => 'nullable|numeric|between:1,5',
+            'review-date' => 'nullable|date|before_or_equal:today',
+            'review-text' => 'nullable|string|max:5000',
+            'is_draft' => 'required|numeric|between:0,1'
         ];
     }
 }
