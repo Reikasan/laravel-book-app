@@ -26,7 +26,7 @@
                 @endforeach
             </div>
             <div class="btn-container hidden">
-                <a href="{{ route('reviews.index') }}" class="btn btn-primary show-more-btn">All Reviews</a>
+                <a href="{{ route('reviews.indexDrafts') }}" class="btn btn-primary show-more-btn">All Draft</a>
             </div>
         </section>
         @endif

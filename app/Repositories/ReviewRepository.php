@@ -10,7 +10,7 @@ class ReviewRepository
     public function getLatestReviews(): object
     {
         $reviews = Review::where([
-                            'user_id' => auth()->user()->id,
+                            'user_id' => auth()->id(),
                             'is_draft' => false
                         ])
                         ->whereBetween('review_date', [now()->subDays(60), now()])
@@ -21,7 +21,7 @@ class ReviewRepository
 
     public function getReviewDrafts(): object
     {
-        $drafts = Review::where(['user_id' => auth()->user()->id, 'is_draft' => true])
+        $drafts = Review::where(['user_id' => auth()->id(), 'is_draft' => true])
                         ->orderBy('created_at', 'desc')
                         ->get();
         return $drafts;

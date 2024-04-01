@@ -45,6 +45,15 @@ class ReviewController extends Controller
             'selectedYear' => $year
         ]);
     }
+    /**
+     * Index the drafts.
+     */
+    public function indexDrafts()
+    {
+
+        $drafts = $this->reviewService->getReviewDrafts();
+        return view('pages.reviewDrafts', ['drafts' => $drafts]);
+    }
 
     /**
      * Show the search Book page.
