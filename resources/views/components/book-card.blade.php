@@ -55,9 +55,8 @@
     </div>
     @if($book->isBookInDatabase)
     <div class="book-card__btn-container">
-        {{-- <a class="btn btn--secondary" href="{{ route('books.show', ['book' => $book->id])}}">Book Details</a> --}}
         @if(!$isBookReviewedByUser)
-        <a class="btn btn--primary" href="{{ route('reviews.createBookReview', ['book' => $book->id])}}">Review it</a>
+        <a class="btn btn--primary review-btn" href="{{ route('reviews.createBookReview', ['book' => $book->id])}}">Review it</a>
         @endif
     </div>
     @else
@@ -70,6 +69,7 @@
             <button type="submit" class="btn btn--primary">Review it</button>
             @endif
         </form>
+        <a class="btn btn--primary review-btn hidden" href="">Review it</a>
     </div>
     @endif  
 </div>  

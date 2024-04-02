@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookRequest;
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
 use App\Services\WishlistService;
 use App\Services\BookService;
-use App\Models\Book;
-
 
 class WishlistController extends Controller
 {
@@ -32,14 +29,15 @@ class WishlistController extends Controller
 
     public function store(Request $request)
     {
+        
         try {
             $inputs = $request->validate([
-                'book_id' => 'string',
+                'book_id' => 'sometimes|string',
                 'isbn' => 'nullable|string|max:100',
                 'isbn13' => 'nullable|string|max:100',
                 'asynchronous' => 'nullable|string',
             ]);
-            
+         
             if(!isset($inputs['book_id'])) {
                 $isbn = $inputs['isbn'] ? $inputs['isbn'] : $inputs['isbn13'];
                 $book = $this->bookService->storeFetchedBook($isbn);
@@ -55,9 +53,11 @@ class WishlistController extends Controller
             $savedItem = $this->wishlistService->store($inputs);
 
             if(isset($inputs['asynchronous'])) {
-                return response()->json(['wishlistId' => $savedItem->id], 200);
+                return response()->json([
+                    'wishlistId' => $savedItem->id,
+                    'bookId' => $book->id,
+                ], 200);
             }
-            
             return redirect()->route('books.show', ['book' => $book]);
         } catch (\Exception $e) {
             if(isset($inputs['asynchronous'])) {
@@ -72,12 +72,13 @@ class WishlistController extends Controller
      */
     public function destroy(Wishlist $wishlist)
     {
+        $bookId = $wishlist->book_id;
         try {
             if(!$this->wishlistService->isOwnedByUser($wishlist->id)) {
                 return;
             }
             $this->wishlistService->destroy($wishlist);
-            return response()->json(['success' => true], 200);
+            return response()->json(['bookId' => $bookId], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error'. $e->getMessage()], 500);
         }

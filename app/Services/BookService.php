@@ -23,7 +23,7 @@ class BookService
     public function fetchBook(string $type, string $keyword)
     {
         if($type === 'isbn') {
-            return $book = Cache::get($keyword);
+            return $book = $this->getBookFromCache($keyword);
 
             if(!$book) {
                 $books = $this->getBookDataFromAPI($type, $keyword);
@@ -83,10 +83,7 @@ class BookService
                 $item->categories = isset($book['volumeInfo']['categories'])? $book['volumeInfo']['categories'][0] : null;
                 $item->google_book_id = $book['id'];
                 $item->google_book_link = $book['selfLink'];
-
-                // if($keyword !== "toDatabase") {
-                    $item->isReviewedByUser = false;
-                // }
+                $item->isReviewedByUser = false;
                 $item->isBookInDatabase = false;
                 
             }
@@ -101,7 +98,6 @@ class BookService
         return $this->bookRepository->getUserReview($book);
     }
 
-
     public function storeFetchedBook($isbn): Book
     {
         $book = $this->getBookFromCache($isbn);
@@ -113,13 +109,13 @@ class BookService
         return $this->bookRepository->isBookReviewedByUser($bookId);
     }
 
-    private function storeBookInCache($book)
+    public function storeBookInCache($book)
     {
         $isbn = $book->isbn !== "" ? $book->isbn : $book->isbn13;
-        Cache::put($isbn, $book, 60*60);
+        Cache::put($isbn, $book, 600*60);
     }
 
-    private function getBookFromCache($isbn)
+    public function getBookFromCache($isbn)
     {
         return Cache::get($isbn);
     }

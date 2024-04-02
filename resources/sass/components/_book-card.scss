@@ -6,6 +6,10 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .hidden {
+        display: none;
+    }
+    
     &__img {
         height: 200px;
         object-fit: contain;

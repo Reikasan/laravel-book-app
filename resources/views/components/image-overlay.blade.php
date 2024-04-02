@@ -10,5 +10,6 @@
         <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
         <button type="submit" class="btn show-details-btn">Details</button>
     </form>
+    <a href="" class="btn hidden">Details</a>
     @endif
 </div>
