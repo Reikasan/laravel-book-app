@@ -91,13 +91,18 @@ class ReviewRepository
         ]);
     }
 
-    public function validateReview(array $inputs): bool
+    public function updateReview(array $inputs, int $id): bool
     {
-        if($inputs['is_draft'] == 0) {
-            if($inputs['review-rate'] == null || $inputs['review-date'] == null || $inputs['review-text'] == null) {
-                return false;
-            }
-        }
-        return true;
+        $review = $this->findOrFail($id);
+        $review->rating = $inputs['review-rate'];
+        $review->review_date = $inputs['review-date'];
+        $review->review = $inputs['review-text'];
+        $review->is_draft = $inputs['is_draft'];
+        return $review->save();
+    }
+
+    public function findOrFail(int $id): object
+    {
+        return Review::findOrFail($id);
     }
 }

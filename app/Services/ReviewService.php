@@ -40,6 +40,21 @@ class ReviewService
 
     public function validateReview(array $inputs): bool
     {
-        return $this->reviewRepository->validateReview($inputs);
+        if($inputs['is_draft'] == 0) {
+            if($inputs['review-rate'] == null || $inputs['review-date'] == null || $inputs['review-text'] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function updateReview(array $inputs, int $id): bool
+    {
+        return $this->reviewRepository->updateReview($inputs, $id);
+    }
+
+    public function findOrFail(int $id): object
+    {
+        return $this->reviewRepository->findOrFail($id);
     }
 }

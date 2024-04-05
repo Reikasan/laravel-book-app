@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Services\BookService;
@@ -119,9 +120,23 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $review)
+    public function update(UpdateReviewRequest $request, Review $review)
     {
-        //
+        if($this->reviewService->findOrFail($review->id) === null) {
+            return back()->withInput()->withErrors(['error' => 'The review does not exist.']);
+        }
+        
+        $inputs = $request->validated();
+        if($this->reviewService->validateReview($inputs) === false) {
+            return back()->withInput()->withErrors(['error' => 'The review is invalid.']);
+        }
+        try {
+            $this->reviewService->updateReview($inputs, $review->id);
+            return response()->json(['reviewId' => $review->id], 200);
+        }
+        catch (\Exception $e) {
+            return back()->withInput()->withErrors(['error' => 'An error occurred while updating the review.']);
+        }
     }
 
     /**
