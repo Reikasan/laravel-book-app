@@ -4,7 +4,7 @@
             <form method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="book_id" value="{{ $review->book->id }}" required>
+                <input type="hidden" name="review_id" value="{{ $review->id }}" required>
                 <div class="book-details grid">
                     <div class="book-details__img img-with-link">
                         <img 
@@ -52,8 +52,10 @@
                     </div>
                 </div>
                 <div class="btn-container">
-                    <button type="submit" class="btn btn--secondary store-btn store-btn--draft">Save as draft</button>
-                    <button type="submit" class="btn btn--primary store-btn store-btn--review">Add review</button>
+                    @if($review->is_draft == 1)
+                    <button type="submit" class="btn btn--secondary edit-btn store-btn--draft">Save as draft</button>
+                    @endif
+                    <button type="submit" class="btn btn--primary edit-btn store-btn--review">Add review</button>
                 </div>
             </form>
         </div>

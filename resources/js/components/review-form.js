@@ -1,34 +1,35 @@
 const storeBtns = document.querySelectorAll('.store-btn');
+const editBtns = document.querySelectorAll('.edit-btn');
 const bookId = document.querySelector('input[name=book_id]');
+const reviewId = document.querySelector('input[name=review_id]');
 const reviewRate = document.querySelector('input[name=review-rate]');
 const reviewDate = document.querySelector('input[name=review-date]');
 const reviewText = document.querySelector('textarea[name=review-text]');
 const csrfToken = document.querySelector('input[name="_token"]');
 
 storeBtns.forEach((storeBtn) => {
-    storeBtn.addEventListener('click', (e) => storeReview(e));
+    storeBtn.addEventListener('click', (e) => storeReview(e, 'store'));
 });
 
-function storeReview(e) {
+editBtns.forEach((editBtn) => {
+    editBtn.addEventListener('click', (e) => storeReview(e, 'edit'));
+})
+
+function storeReview(e, action) {
     e.preventDefault();
-    if(!validateForm(e)) {
+    if(!validateForm(e, action)) {
         return;
     }
+    const formData = createFormData(e);
 
-    const reviewRateValue = reviewRate.value == 0 ? '' : reviewRate.value;
-    const formData = new FormData();
-    formData.append('book_id', bookId.value);
-    formData.append('review-rate', reviewRateValue);
-    formData.append('review-date', reviewDate.value);
-    formData.append('review-text', reviewText.value);
+    let url = '/reviews';
 
-    if(e.target.classList.contains('store-btn--draft')) {
-        formData.append('is_draft', 1);
-    } else {
-        formData.append('is_draft', 0);
+    if(action === 'edit') {
+        url = `/reviews/${reviewId.value}`;
+        formData.append('_method', 'PUT');
     }
 
-    fetch('/reviews', {
+    fetch(url, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': csrfToken.value
@@ -50,8 +51,8 @@ function storeReview(e) {
     });
 }
 
-function validateForm(e) {
-    if(isNaN(Number(bookId.value))) {
+function validateForm(e, action) {
+    if(action == 'store' && isNaN(Number(bookId.value))) {
         alert('Something went wrong. Please try again.');
         return;
     }
@@ -130,4 +131,23 @@ function toggleInvalidClass(input, isValid) {
     } else {
         formGroupElement.classList.add('is-invalid');
     }
+}
+
+function createFormData(e) {
+    const reviewRateValue = reviewRate.value == 0 ? '' : reviewRate.value;
+    const formData = new FormData();
+    formData.append('review-rate', reviewRateValue);
+    formData.append('review-date', reviewDate.value);
+    formData.append('review-text', reviewText.value);
+
+    if(bookId !== null) {
+        formData.append('book_id', bookId.value);
+    }
+
+    if(e.target.classList.contains('store-btn--draft') || e.target.classList.contains('edit-btn--draft')) {
+        formData.append('is_draft', 1);
+    } else {
+        formData.append('is_draft', 0);
+    }
+    return formData;
 }
