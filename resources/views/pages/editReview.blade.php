@@ -55,7 +55,7 @@
                     @if($review->is_draft == 1)
                     <button type="submit" class="btn btn--secondary edit-btn store-btn--draft">Save as draft</button>
                     @endif
-                    <button type="submit" class="btn btn--primary edit-btn store-btn--review">Add review</button>
+                    <button type="submit" class="btn btn--primary edit-btn store-btn--review">Update review</button>
                 </div>
             </form>
         </div>

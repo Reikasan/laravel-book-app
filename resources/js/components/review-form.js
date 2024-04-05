@@ -6,14 +6,35 @@ const reviewRate = document.querySelector('input[name=review-rate]');
 const reviewDate = document.querySelector('input[name=review-date]');
 const reviewText = document.querySelector('textarea[name=review-text]');
 const csrfToken = document.querySelector('input[name="_token"]');
+let isSubmitting = false;
 
 storeBtns.forEach((storeBtn) => {
-    storeBtn.addEventListener('click', (e) => storeReview(e, 'store'));
+    storeBtn.addEventListener('click', (e) => {
+        isSubmitting = true;
+        storeReview(e, 'store');
+    });
 });
 
 editBtns.forEach((editBtn) => {
-    editBtn.addEventListener('click', (e) => storeReview(e, 'edit'));
-})
+    editBtn.addEventListener('click', (e) => {
+        isSubmitting = true;
+        storeReview(e, 'edit');
+    });
+});
+
+window.addEventListener('beforeunload', (e) => {
+    if(!isSubmitting) {
+        confirmPageLeave(e);
+    }
+});
+
+function confirmPageLeave(e) {
+    if(!document.querySelector('.review__form')) {
+        return;
+    }
+    e.preventDefault();
+    e.returnValue = '';
+}
 
 function storeReview(e, action) {
     e.preventDefault();
@@ -144,7 +165,8 @@ function createFormData(e) {
         formData.append('book_id', bookId.value);
     }
 
-    if(e.target.classList.contains('store-btn--draft') || e.target.classList.contains('edit-btn--draft')) {
+    if(e.target.classList.contains('store-btn--draft') 
+    || e.target.classList.contains('edit-btn--draft' )) {
         formData.append('is_draft', 1);
     } else {
         formData.append('is_draft', 0);
