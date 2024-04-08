@@ -4,18 +4,19 @@
         <section class="recently-reviewed book-card-container">
             <h1>Recently Reviewed</h1>
             <div class="single-row-grid row">
-                @if(count($latestReviews) == 0)
-                    <h2 class="no-item">No reviews in 30 Days</h2>
-                    <a class="btn btn-primary" href="{{ route('reviews.index')}}">All Reviews</a>
-                @else
-                    @foreach ($latestReviews as $latestReview)
-                        <x-review-card :review="$latestReview" />
-                    @endforeach
-                @endif
+            @if(count($latestReviews) == 0)
+                <h2 class="no-item">No reviews in 30 Days</h2>
+                <a class="btn btn-primary" href="{{ route('reviews.index')}}">All Reviews</a>
             </div>
-            <div class="btn-container hidden">
-                <a href="{{ route('reviews.index') }}" class="btn btn-primary show-more-btn">All Reviews</a>
+            @else
+            @foreach ($latestReviews as $latestReview)
+                <x-review-card :review="$latestReview" />
+            @endforeach
             </div>
+            <div class="btn-container">
+                <a href="{{ route('reviews.index') }}" class="btn btn-primary">All Reviews</a>
+            </div>
+            @endif
         </section>
         @if(count($drafts) !== 0)
         <section class="review-draft book-card-container">
