@@ -18,14 +18,14 @@ a.btn {
     @include primaryBtn;
 
     &:hover {
-       @include secondaryBtn; 
+       background: darken($primaryColor, 5%); 
     }
 
     &--secondary {
         @include secondaryBtn;
        
         &:hover {
-            @include primaryBtn; 
+            @include primaryBtn;
          }
     }
 }
