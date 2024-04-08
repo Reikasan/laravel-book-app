@@ -105,4 +105,9 @@ class ReviewRepository
     {
         return Review::findOrFail($id);
     }
+
+    public function destroy(int $id): bool
+    {
+        return Review::destroy($id);
+    }
 }

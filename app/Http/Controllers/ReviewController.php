@@ -144,7 +144,17 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        if($this->reviewService->findOrFail($review->id) === null) {
+            return back()->withInput()->withErrors(['error' => 'The review does not exist.']);
+        }
+        
+        try {
+            $this->reviewService->destroy($review->id);
+            return $this->index();
+        }
+        catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred while deleting the review.']);
+        }
     }
 
     public function createFromApi(Request $request)

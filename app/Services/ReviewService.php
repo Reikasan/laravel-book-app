@@ -57,4 +57,9 @@ class ReviewService
     {
         return $this->reviewRepository->findOrFail($id);
     }
+
+    public function destroy(int $id): bool
+    {
+        return $this->reviewRepository->destroy($id);
+    }
 }
