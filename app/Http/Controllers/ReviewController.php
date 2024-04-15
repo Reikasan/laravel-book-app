@@ -91,6 +91,11 @@ class ReviewController extends Controller
        
         try {
             $review = $this->reviewService->store($inputs);
+            if($inputs['is_draft'] == true) {
+                $request->session()->flash('success', 'The review has been saved as a draft.');
+            } else {
+                $request->session()->flash('success', 'The review has been stored successfully.');
+            }
 
             // Remove the book from the wishlist if it exists
             $result = $this->wishlistService->destroyByBookId($inputs['book_id']);
@@ -132,6 +137,7 @@ class ReviewController extends Controller
         }
         try {
             $this->reviewService->updateReview($inputs, $review->id);
+            $request->session()->flash('success', 'The review has been updated successfully.');
             return response()->json(['reviewId' => $review->id], 200);
         }
         catch (\Exception $e) {
@@ -150,6 +156,7 @@ class ReviewController extends Controller
         
         try {
             $this->reviewService->destroy($review->id);
+            $request->session()->flash('success', 'The review has been deleted successfully.');
             return $this->index();
         }
         catch (\Exception $e) {

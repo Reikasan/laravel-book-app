@@ -29,7 +29,6 @@ class WishlistController extends Controller
 
     public function store(Request $request)
     {
-        
         try {
             $inputs = $request->validate([
                 'book_id' => 'sometimes|string',
@@ -51,14 +50,16 @@ class WishlistController extends Controller
             unset($inputs['isbn13']);
             
             $savedItem = $this->wishlistService->store($inputs);
-
             if(isset($inputs['asynchronous'])) {
                 return response()->json([
                     'wishlistId' => $savedItem->id,
                     'bookId' => $book->id,
                 ], 200);
+            } else {
+                $request->session()->flash('success', 'The Book added to wishlist!');
             }
             return redirect()->route('books.show', ['book' => $book]);
+
         } catch (\Exception $e) {
             if(isset($inputs['asynchronous'])) {
                 return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
@@ -70,7 +71,7 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Wishlist $wishlist)
+    public function destroy(Wishlist $wishlist, Request $request)
     {
         $bookId = $wishlist->book_id;
         try {
@@ -78,6 +79,7 @@ class WishlistController extends Controller
                 return;
             }
             $this->wishlistService->destroy($wishlist);
+            $request->session()->flash('success', 'The book has been removed from the wishlist.');
             return response()->json(['bookId' => $bookId], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error'. $e->getMessage()], 500);
