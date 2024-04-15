@@ -13,10 +13,10 @@
                     <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <div type="submit" class="">
+                        <button type="submit" class="">
                             <i class="fa-solid fa-eraser"></i>
                             Delete
-                        </div>
+                        </button>
                     </form>
                 </li>
                 <li class="menu__item">

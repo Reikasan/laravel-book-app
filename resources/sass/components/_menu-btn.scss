@@ -29,6 +29,18 @@
         li.menu__item {
             margin-bottom: 1rem;
             cursor: pointer;
+     
+            button {
+                background-color: transparent;
+                border: none;
+                color: $darkgray;
+                font-size: 1.4rem;
+                font-weight: 700;
+                padding: 0;
+                text-align: left;
+                width: 100%;
+                cursor: pointer;
+            }
 
             a {
                 color: $darkgray;
@@ -37,11 +49,6 @@
             i {
                 color: $darkgray;
                 margin-right: 1rem;
-            }
-
-            div {
-                font-size: 1.4rem;
-                font-weight: 700;
             }
         }
     }
