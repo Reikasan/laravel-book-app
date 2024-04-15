@@ -1,7 +1,6 @@
 <x-app>
     <div class="book">
         <div class="book-details">
-            @csrf
             @inject('bookService', 'App\Services\BookService')
             <div class="book-details__img">
                 <img 
@@ -10,6 +9,7 @@
                 <!-- If the book is not in the database, the user can add it to the database and review it -->
                 @if($book->id == "")
                 <form method="POST" action="{{ route('reviews.createFromApi', ['title' => $book->title]) }}">
+                    @csrf
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
                     <button type="submit" class="btn btn--primary">Create review</button>
@@ -30,6 +30,7 @@
                 @endif
                 @if($book->id == null || !$bookService->isBookReviewedByUser($book->id))
                 <form class="wishlist-form" method="POST" action="{{ route('wishlist.store') }}">
+                    @csrf
                     @if($book->id == "")
                     <input type="hidden" name="isbn" value="{{ $book->isbn }}">
                     <input type="hidden" name="isbn13" value="{{ $book->isbn13 }}">
