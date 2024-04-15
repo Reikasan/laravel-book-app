@@ -1,0 +1,14 @@
+@keyframes slideRight {
+    0% {
+        right: 10px;
+        opacity: 1;
+    }
+    70% {
+        right: 10px;
+        opacity: 1;
+    }
+    100% {
+        right: -100%;
+        opacity: 0;
+    }
+}

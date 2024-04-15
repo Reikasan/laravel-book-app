@@ -27,5 +27,12 @@
         <div class="container {{ isset($containerClass) ? $containerClass : null }}">
             {{ $slot }}
         </div>
+        @if(session('success'))
+        <x-toast-notification type="success" message="{{session('success')}}"/>
+        @elseif($errors->any())
+            @foreach($errors->all() as $error)
+            <x-toast-notification type="error" message="{{$errors->any()}}"/>
+            @endforeach
+        @endif
     </body>
 </html>
